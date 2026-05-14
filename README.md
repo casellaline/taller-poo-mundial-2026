@@ -12,7 +12,7 @@ Trabajo final integrador para promocionar POO (UNER). Consiste en un sistema des
 
 ### Grupo de Trabajo
 * **Aliné Sol Casella** - casellasol03@gmail.com
-* **Luis Ortiz** - 
+* **Luis Ortiz** - luis77vno@gmail.com
 
 ---
 
