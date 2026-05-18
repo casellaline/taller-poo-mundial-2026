@@ -6,6 +6,7 @@ public class Arbitro extends Persona{
         this.aniosExperiencia=aniosExperiencia;
     }
     //Getters
+
     public int getAniosExperiencia() {
         return aniosExperiencia;
     }
