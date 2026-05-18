@@ -7,19 +7,19 @@ public class Partido {
     private Fase correspondeFase;
     private Arbitro cuentaConArbitro;
     private Arbitraje arbitraje;
-    private Evento evento;
+    private Evento involucraEvento;
     private Participacion equipoLocal;
     private Participacion equipoVisitante;
     //Constructores
 
-    public Partido(int fecha, int horario, int duracion, int tiempoAdicional, Estadio seDesarrolla, Fase correspondeFase, TipoEvento tipo, int minuto, Participacion equipoLocal, Participacion equipoVisitante ) {
+    public Partido(int fecha, int horario, int duracion, int tiempoAdicional, Estadio seDesarrolla, Fase correspondeFase, Participacion equipoLocal, Participacion equipoVisitante ) {
         this.fecha = fecha;
         this.horario=horario;
         this.duracion=duracion;
         this.tiempoAdicional=tiempoAdicional;
         this.seDesarrolla=seDesarrolla;
         this.correspondeFase=correspondeFase;
-        this.evento= new Evento(tipo, minuto);
+        this.involucraEvento= null;
         this.equipoLocal=equipoLocal;
         this.equipoVisitante=equipoVisitante;
         this.cuentaConArbitro=null;
@@ -62,7 +62,7 @@ public class Partido {
     }
 
     public Evento getEvento() {
-        return evento;
+        return involucraEvento;
     }
 
     public Participacion getEquipoLocal() {
@@ -73,4 +73,9 @@ public class Partido {
         return equipoVisitante;
     }
 
+    //Metodos
+
+    public void agregarEvento(TipoEvento tipo, int minuto){
+        this.involucraEvento= new Evento (tipo, minuto);
+    }
 }
