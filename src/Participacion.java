@@ -24,4 +24,15 @@ public class Participacion {
     public void setPartido(Partido partido) {
         this.partido = partido;
     }
+    //Metodos
+
+    public int cantidadGoles(){
+        return 0;
+    }
+    public int cantidadTarjAmarillas(){
+        return 0;
+    }
+    public int cantidadTarjRojas(){
+        return 0;
+    }
 }

@@ -28,4 +28,9 @@ public class Grupo {
     public Seleccion getSeAgrupaSeleccion() {
         return seAgrupaSeleccion;
     }
+    //Metodos
+
+    public int obtenerPuntos(Seleccion s){
+        return 0;
+    }
 }
