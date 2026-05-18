@@ -3,16 +3,16 @@ public class Sede {
     private float alturaNivelMar;
     private String clima;
     private String zonaHoraria;
-    private Estadio estadio;
-    private Pais pais;
+    private Estadio tieneEstadio;
+    private Pais pertenecePais;
     //Constructor
-    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Estadio estadio, Pais pais) {
+    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Estadio tieneEstadio, Pais pertenecePais) {
         this.ciudad = ciudad;
         this.alturaNivelMar = alturaNivelMar;
         this.clima = clima;
         this.zonaHoraria = zonaHoraria;
-        this.estadio = estadio;
-        this.pais=pais;
+        this.tieneEstadio = tieneEstadio;
+        this.pertenecePais=pertenecePais;
     }
     //Getters
     public String getCiudad() {
@@ -32,10 +32,10 @@ public class Sede {
     }
 
     public Estadio getEstadio() {
-        return estadio;
+        return tieneEstadio;
     }
 
     public Pais getPais() {
-        return pais;
+        return pertenecePais;
     }
 }
