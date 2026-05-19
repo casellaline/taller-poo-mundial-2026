@@ -1,12 +1,20 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Arbitro extends Persona{
     private int aniosExperiencia;
     private Pais cuentaConPais;
-    private Arbitraje arbitraje;
+    private List<Arbitraje> arbitrajes;
+
     //Constructor
-    public Arbitro(String nombre, int fecNacimiento, int aniosExperiencia){
+    public Arbitro(String nombre, int fecNacimiento, int aniosExperiencia, Pais cuentaConPais, List<Arbitraje> arbitrajes){
         super(nombre, fecNacimiento);
         this.aniosExperiencia=aniosExperiencia;
+        this.cuentaConPais=cuentaConPais;
+        this.arbitrajes=arbitrajes;
+        this.arbitrajes = new ArrayList<>();//Se crea una lista vacia por la herencia
     }
+
     //Getters y Setters
 
     public int getAniosExperiencia() {
@@ -20,12 +28,8 @@ public class Arbitro extends Persona{
         this.cuentaConPais=pais;
     }
 
-    public Arbitraje getArbitraje() {
-        return arbitraje;
-    }
-
-    public void asignarArbitraje(Arbitraje arbitraje){
-        this.arbitraje=arbitraje;
+    public void agregarArbitraje(Arbitraje arbi){
+        this.arbitrajes.add(arbi);
     }
 
 }

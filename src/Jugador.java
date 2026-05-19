@@ -1,23 +1,32 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Jugador extends Persona{
+
     private int dorsal;
     private Posicion posicion;
     private float peso;
     private float altura;
     private Seleccion integraSeleccion;
-    private Evento involucraEvento;
+    private List<Evento> involucraEvento;
     // constructor
-    public Jugador(String nombre, int fecNacimiento, int dorsal, Posicion posicion, float peso, float altura, Seleccion integraSeleccion){
+    public void Jugador(){
+        this.involucraEvento= new ArrayList<Evento>();
+    }
+    public Jugador(String nombre, int fecNacimiento, int dorsal, Posicion posicion, float peso, float altura, Seleccion integraSeleccion,List<Evento> involucraEvento){
         super(nombre, fecNacimiento);
         this.dorsal=dorsal;
         this.posicion=posicion;
         this.peso=peso;
         this.altura=altura;
         this.integraSeleccion=integraSeleccion;
+        this.involucraEvento=involucraEvento;
     }
+
     //Getters y Setters
 
-    public void setInvolucraEvento(Evento involucraEvento) {
-        this.involucraEvento = involucraEvento;
+    public void agregarEvento(Evento evento) {
+        this.involucraEvento.add(evento);
     }
 
     public int getDorsal() {
@@ -39,8 +48,5 @@ public class Jugador extends Persona{
     public Seleccion getIntegraSeleccion() {
         return integraSeleccion;
     }
-
-    public Evento getInvolucraEvento() {
-        return involucraEvento;
-    }
+    //Mostrar evento
 }

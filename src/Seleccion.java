@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Seleccion {
     private String nombreFederacion;
     private String camisetaPrincipal;
@@ -6,12 +9,20 @@ public class Seleccion {
     private int rankingFIFA;
     private Pais representaPais;
     private Grupo seAgrupa;
-    private Jugador integraJugador;
-    private DirectorTecnico dirigeDT;
-    private CuerpoTecnico cuerpoTec;
-    private Participacion participacion;
+    private List<Jugador> integraJugador;
+    private List<DirectorTecnico> dirigeDT;
+    private List<CuerpoTecnico> cuerpoTec;
+    private List<Participacion> participaciones;
 
-    public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo, int rankingFIFA, Pais representaPais, Grupo seAgrupa, Jugador integraJugador, DirectorTecnico dirigeDT, CuerpoTecnico cuerpoTec) {
+    //Constructores
+    public Seleccion(){
+        this.participaciones= new ArrayList<Participacion>();
+        this.integraJugador=new ArrayList<Jugador>();
+        this.dirigeDT=new ArrayList<DirectorTecnico>();
+        this.cuerpoTec=new ArrayList<CuerpoTecnico>();
+    }
+
+    public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo, int rankingFIFA, Pais representaPais, Grupo seAgrupa, List<Jugador> integraJugador, List<DirectorTecnico> dirigeDT, List<CuerpoTecnico> cuerpoTec,List<Participacion>participaciones) {
         this.nombreFederacion = nombreFederacion;
         this.camisetaPrincipal = camisetaPrincipal;
         this.camisetaSecundaria = camisetaSecundaria;
@@ -22,20 +33,20 @@ public class Seleccion {
         this.integraJugador = integraJugador;
         this.dirigeDT = dirigeDT;
         this.cuerpoTec = cuerpoTec;
-        this.participacion = null;
+        this.participaciones = participaciones;
     }
     //Getters y Setters
 
     public void agregarJugador(Jugador jugador) {
-        this.integraJugador = jugador;
+        this.integraJugador.add(jugador);
     }
 
     public void agregarDirectorTec(DirectorTecnico directorTec) {
-        this.dirigeDT = directorTec;
+        this.dirigeDT.add(directorTec);
     }
 
     public void agregarCuerpoTec(CuerpoTecnico cuerpoTec) {
-        this.cuerpoTec = cuerpoTec;
+        this.cuerpoTec.add(cuerpoTec);
     }
 
     public String getNombreFederacion() {
@@ -66,19 +77,7 @@ public class Seleccion {
         return seAgrupa;
     }
 
-    public Jugador getIntegraJugador() {
-        return integraJugador;
-    }
-
-    public DirectorTecnico getDirigeDT() {
-        return dirigeDT;
-    }
-
-    public CuerpoTecnico getCuerpoTec() {
-        return cuerpoTec;
-    }
-
-    public Participacion getParticipacion() {
-        return participacion;
+    public void agregarParticipacion(Participacion participacion){
+        this.participaciones.add(participacion);
     }
 }

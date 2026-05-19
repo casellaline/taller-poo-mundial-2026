@@ -4,8 +4,8 @@ public class Participacion {
     private Partido partido;
     public Participacion(boolean esLocal, Seleccion seleccion) {
         this.esLocal = esLocal;
-        this.partido = partido;
-        this.seleccion = null;
+        this.seleccion = seleccion;
+        this.partido = null;
     }
     //Getters y Setters
 
@@ -13,16 +13,16 @@ public class Participacion {
         this.partido = partido;
     }
 
-    public void setEsLocal(boolean esLocal) {
-        this.esLocal = esLocal;
+    public boolean isEsLocal() {
+        return esLocal;
     }
 
-    public void setSeleccion(Seleccion seleccion) {
-        this.seleccion = seleccion;
+    public Seleccion getSeleccion() {
+        return seleccion;
     }
 
-    public void setPartido(Partido partido) {
-        this.partido = partido;
+    public Partido getPartido() {
+        return partido;
     }
     //Metodos
 

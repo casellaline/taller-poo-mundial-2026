@@ -1,18 +1,24 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Sede {
     private String ciudad;
     private float alturaNivelMar;
     private String clima;
     private String zonaHoraria;
-    private Estadio tieneEstadio;
     private Pais pertenecePais;
+    private List<Estadio> tieneEstadio;
     //Constructor
-    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Estadio tieneEstadio, Pais pertenecePais) {
+    public Sede(){
+        this.tieneEstadio=new ArrayList<Estadio>();
+    }
+    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Pais pertenecePais, List<Estadio> tieneEstadio) {
         this.ciudad = ciudad;
         this.alturaNivelMar = alturaNivelMar;
         this.clima = clima;
         this.zonaHoraria = zonaHoraria;
-        this.tieneEstadio = tieneEstadio;
         this.pertenecePais=pertenecePais;
+        this.tieneEstadio = tieneEstadio;
     }
     //Getters
     public String getCiudad() {
@@ -31,11 +37,12 @@ public class Sede {
         return zonaHoraria;
     }
 
-    public Estadio getEstadio() {
-        return tieneEstadio;
-    }
+    //public Estadio getEstadio() {return tieneEstadio;    }
 
     public Pais getPais() {
         return pertenecePais;
+    }
+    public void agregarEstadio(Estadio estadio){
+        this.tieneEstadio.add(estadio);
     }
 }

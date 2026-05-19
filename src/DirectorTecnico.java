@@ -10,6 +10,3 @@ public class DirectorTecnico extends Persona{
         return fechaNombramiento;
     }
 }
-
-
-

@@ -1,18 +1,24 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pais {
     private String nombre;
     private String bandera;
-    private Sede perteneceSede;
-    private Arbitro cuentaConArbitro;
-    private Seleccion representaSeleccion;
+    private List<Sede> perteneceSede;
+    private List<Arbitro> cuentaConArbitro;
+    private List<Seleccion> representaSeleccion;
     //Constructor
+    public Pais(){
+        this.perteneceSede= new ArrayList<Sede>();
+        this.cuentaConArbitro=new ArrayList<Arbitro>();
+        this.representaSeleccion= new ArrayList<Seleccion>();
+
+    }
     public Pais(String nombre, String bandera){
         this.nombre=nombre;
         this.bandera=bandera;
-        this.perteneceSede=null;
-        this.cuentaConArbitro=null;
-        this.representaSeleccion=null;
     }
-    public Pais(String nombre, String bandera, Sede perteneceSede, Arbitro cuentaConArbitro, Seleccion representaSeleccion){
+    public Pais(String nombre, String bandera, List<Sede> perteneceSede, List<Arbitro> cuentaConArbitro, List<Seleccion> representaSeleccion){
         this.nombre=nombre;
         this.bandera=bandera;
         this.perteneceSede=perteneceSede;
@@ -29,27 +35,15 @@ public class Pais {
         return bandera;
     }
 
-    public Sede getPerteneceSede() {
-        return perteneceSede;
-    }
-
     public void asociarSede(Sede sede) {
-        this.perteneceSede = sede;
-    }
-
-    public Arbitro getCuentaConArbitro() {
-        return cuentaConArbitro;
+        this.perteneceSede.add(sede);
     }
 
     public void asociarArbitro(Arbitro arbitro) {
-        this.cuentaConArbitro = arbitro;
-    }
-
-    public Seleccion getRepresentaSeleccion() {
-        return representaSeleccion;
+        this.cuentaConArbitro.add(arbitro);
     }
 
     public void asociarSeleccion(Seleccion seleccion) {
-        this.representaSeleccion = seleccion;
+        this.representaSeleccion.add(seleccion);
     }
 }

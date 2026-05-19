@@ -1,11 +1,16 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Grupo {
     private String identificacion;
     private String descripcion;
     private Fase incluyeFase;
-    private Seleccion seAgrupaSeleccion;
+    private List<Seleccion> seAgrupaSeleccion;
     //Constructor
-
-    public Grupo(String identificacion, String descripcion, Fase incluyeFase, Seleccion seAgrupaSeleccion) {
+    public Grupo(){
+        this.seAgrupaSeleccion=new ArrayList<Seleccion>();
+    }
+    public Grupo(String identificacion, String descripcion, Fase incluyeFase, List<Seleccion> seAgrupaSeleccion) {
         this.identificacion = identificacion;
         this.descripcion = descripcion;
         this.incluyeFase = incluyeFase;
@@ -24,9 +29,8 @@ public class Grupo {
     public Fase getIncluyeFase() {
         return incluyeFase;
     }
-
-    public Seleccion getSeAgrupaSeleccion() {
-        return seAgrupaSeleccion;
+    public void asociarSeleccion(Seleccion seleccion){
+        this.seAgrupaSeleccion.add(seleccion);
     }
     //Metodos
 

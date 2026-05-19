@@ -1,18 +1,17 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Mundial {
     private int anio;
     private String mascota;
     private int fechaDesde;
     private int fechasHasta;
-    private Sede involucraSede;
+    private List<Sede> involucraSede;
     //Constructores
-    public Mundial(int anio, String mascota, int fechaDesde, int fechasHasta) {
-        this.anio = anio;
-        this.mascota = mascota;
-        this.fechaDesde = fechaDesde;
-        this.fechasHasta = fechasHasta;
+    public Mundial(){
+        this.involucraSede=new ArrayList<Sede>();
     }
-
-    public Mundial(int anio, String mascota, int fechaDesde, int fechasHasta, Sede involucraSede) {
+    public Mundial(int anio, String mascota, int fechaDesde, int fechasHasta, List<Sede> involucraSede) {
         this.anio = anio;
         this.mascota = mascota;
         this.fechaDesde = fechaDesde;
@@ -22,7 +21,7 @@ public class Mundial {
     //Getters y Setters
 
     public void asociarSede(Sede sede) {
-        this.involucraSede = sede;
+        this.involucraSede.add(sede);
     }
 
     public int getAnio() {
@@ -39,9 +38,5 @@ public class Mundial {
 
     public int getFechasHasta() {
         return fechasHasta;
-    }
-
-    public Sede getInvolucraSede() {
-        return involucraSede;
     }
 }

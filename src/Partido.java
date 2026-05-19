@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Partido {
     private int fecha;
     private int horario;
@@ -5,12 +8,15 @@ public class Partido {
     private int tiempoAdicional;
     private Estadio seDesarrolla;
     private Fase correspondeFase;
-    private Arbitro cuentaConArbitro;
-    private Arbitraje arbitraje;
-    private Evento involucraEvento;
     private Participacion equipoLocal;
     private Participacion equipoVisitante;
+    private List<Arbitraje> arbitrajes;
+    private List<Evento> involucraEvento;
     //Constructores
+    public Partido (){
+        this.arbitrajes=new ArrayList<Arbitraje>();
+        this.involucraEvento=new ArrayList<Evento>();
+    }
 
     public Partido(int fecha, int horario, int duracion, int tiempoAdicional, Estadio seDesarrolla, Fase correspondeFase, Participacion equipoLocal, Participacion equipoVisitante ) {
         this.fecha = fecha;
@@ -19,13 +25,17 @@ public class Partido {
         this.tiempoAdicional=tiempoAdicional;
         this.seDesarrolla=seDesarrolla;
         this.correspondeFase=correspondeFase;
-        this.involucraEvento= null;
         this.equipoLocal=equipoLocal;
         this.equipoVisitante=equipoVisitante;
-        this.cuentaConArbitro=null;
+        this.involucraEvento=new ArrayList<Evento>();
     }
     //Getters y Setter
-
+    public void setArbitrajes(List<Arbitraje> arbitrajes){
+        this.arbitrajes=arbitrajes;
+    }
+    public void agregarArbitraje(Arbitraje arbi){
+        this.arbitrajes.add(arbi);
+    }
     public int getFecha() {
         return fecha;
     }
@@ -50,20 +60,7 @@ public class Partido {
         return correspondeFase;
     }
 
-    public Arbitro getCuentaConArbitro() {
-        return cuentaConArbitro;
-    }
-
-    public void asociarArbitro(Arbitro arbitro) {
-        this.cuentaConArbitro = arbitro;
-    }
-    public void asignarArbitraje(Arbitraje arbitraje){
-        this.arbitraje=arbitraje;
-    }
-
-    public Evento getEvento() {
-        return involucraEvento;
-    }
+    //public Evento getEvento() {return involucraEvento;}
 
     public Participacion getEquipoLocal() {
         return equipoLocal;
@@ -76,6 +73,6 @@ public class Partido {
     //Metodos
 
     public void agregarEvento(TipoEvento tipo, int minuto){
-        this.involucraEvento= new Evento (tipo, minuto);
+        this.involucraEvento.add( new Evento (tipo, minuto));
     }
 }
