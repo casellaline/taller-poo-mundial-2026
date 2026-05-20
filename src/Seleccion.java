@@ -9,20 +9,20 @@ public class Seleccion {
     private int rankingFIFA;
     private Pais representaPais;
     private Grupo seAgrupa;
-    private List<Jugador> integraJugador;
-    private List<DirectorTecnico> dirigeDT;
+    private List<Jugador> Jugadores;
+    private List<DirectorTecnico> directoresTecnicos;
     private List<CuerpoTecnico> cuerpoTec;
     private List<Participacion> participaciones;
 
     //Constructores
     public Seleccion(){
         this.participaciones= new ArrayList<Participacion>();
-        this.integraJugador=new ArrayList<Jugador>();
-        this.dirigeDT=new ArrayList<DirectorTecnico>();
+        this.Jugadores=new ArrayList<Jugador>();
+        this.directoresTecnicos=new ArrayList<DirectorTecnico>();
         this.cuerpoTec=new ArrayList<CuerpoTecnico>();
     }
 
-    public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo, int rankingFIFA, Pais representaPais, Grupo seAgrupa, List<Jugador> integraJugador, List<DirectorTecnico> dirigeDT, List<CuerpoTecnico> cuerpoTec,List<Participacion>participaciones) {
+    public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria, boolean cabezaGrupo, int rankingFIFA, Pais representaPais, Grupo seAgrupa) {
         this.nombreFederacion = nombreFederacion;
         this.camisetaPrincipal = camisetaPrincipal;
         this.camisetaSecundaria = camisetaSecundaria;
@@ -30,19 +30,19 @@ public class Seleccion {
         this.rankingFIFA = rankingFIFA;
         this.representaPais = representaPais;
         this.seAgrupa = seAgrupa;
-        this.integraJugador = integraJugador;
-        this.dirigeDT = dirigeDT;
+        this.Jugadores = Jugadores;
+        this.directoresTecnicos = directoresTecnicos;
         this.cuerpoTec = cuerpoTec;
         this.participaciones = participaciones;
     }
     //Getters y Setters
 
     public void agregarJugador(Jugador jugador) {
-        this.integraJugador.add(jugador);
+        this.Jugadores.add(jugador);
     }
 
     public void agregarDirectorTec(DirectorTecnico directorTec) {
-        this.dirigeDT.add(directorTec);
+        this.directoresTecnicos.add(directorTec);
     }
 
     public void agregarCuerpoTec(CuerpoTecnico cuerpoTec) {
