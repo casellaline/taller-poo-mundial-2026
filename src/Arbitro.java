@@ -6,30 +6,48 @@ public class Arbitro extends Persona{
     private Pais cuentaConPais;
     private List<Arbitraje> arbitrajes;
 
-    //Constructor
-    public Arbitro(String nombre, int fecNacimiento, int aniosExperiencia, Pais cuentaConPais, List<Arbitraje> arbitrajes){
+    //Constructores
+    public Arbitro(){
+        this.arbitrajes= new ArrayList<Arbitraje>();
+    }
+
+    public Arbitro(String nombre, int fecNacimiento, int aniosExperiencia,
+                   Pais cuentaConPais){
         super(nombre, fecNacimiento);
         this.aniosExperiencia=aniosExperiencia;
         this.cuentaConPais=cuentaConPais;
-        this.arbitrajes=arbitrajes;
         this.arbitrajes = new ArrayList<>();//Se crea una lista vacia por la herencia
     }
 
     //Getters y Setters
 
+
     public int getAniosExperiencia() {
         return aniosExperiencia;
+    }
+
+    public void setAniosExperiencia(int aniosExperiencia) {
+        this.aniosExperiencia = aniosExperiencia;
     }
 
     public Pais getCuentaConPais() {
         return cuentaConPais;
     }
-    public void asignarPais(Pais pais){
-        this.cuentaConPais=pais;
+
+    public void setCuentaConPais(Pais cuentaConPais) {
+        this.cuentaConPais = cuentaConPais;
     }
 
-    public void agregarArbitraje(Arbitraje arbi){
-        this.arbitrajes.add(arbi);
+    public List<Arbitraje> getArbitrajes() {
+        return arbitrajes;
     }
 
+    public void setArbitrajes(List<Arbitraje> arbitrajes) {
+        this.arbitrajes = arbitrajes;
+    }
+
+    public void agregarArbitraje(Arbitraje arbitraje){
+        this.arbitrajes.add(arbitraje);
+        arbitraje.setArbitro(this);
+    }
 }

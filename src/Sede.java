@@ -7,42 +7,74 @@ public class Sede {
     private String clima;
     private String zonaHoraria;
     private Pais pertenecePais;
-    private List<Estadio> tieneEstadio;
+    private List<Estadio> estadios;
+
     //Constructor
+
     public Sede(){
-        this.tieneEstadio=new ArrayList<Estadio>();
+        this.estadios=new ArrayList<Estadio>();
     }
-    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria, Pais pertenecePais, List<Estadio> tieneEstadio) {
+
+    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria,
+                Pais pertenecePais) {
         this.ciudad = ciudad;
         this.alturaNivelMar = alturaNivelMar;
         this.clima = clima;
         this.zonaHoraria = zonaHoraria;
         this.pertenecePais=pertenecePais;
-        this.tieneEstadio = tieneEstadio;
+        this.estadios = new ArrayList<Estadio>();
     }
-    //Getters
+    //Getters & Setters
+
     public String getCiudad() {
         return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
     public float getAlturaNivelMar() {
         return alturaNivelMar;
     }
 
+    public void setAlturaNivelMar(float alturaNivelMar) {
+        this.alturaNivelMar = alturaNivelMar;
+    }
+
     public String getClima() {
         return clima;
+    }
+
+    public void setClima(String clima) {
+        this.clima = clima;
     }
 
     public String getZonaHoraria() {
         return zonaHoraria;
     }
 
-    //public Estadio getEstadio() {return tieneEstadio;    }
+    public void setZonaHoraria(String zonaHoraria) {
+        this.zonaHoraria = zonaHoraria;
+    }
 
-    public Pais getPais() {
+    public Pais getPertenecePais() {
         return pertenecePais;
     }
+
+    public void setPertenecePais(Pais pertenecePais) {
+        this.pertenecePais = pertenecePais;
+    }
+
+    public List<Estadio> getEstadios() {
+        return estadios;
+    }
+
+    public void setEstadios(List<Estadio> estadios) {
+        this.estadios = estadios;
+    }
+
     public void agregarEstadio(Estadio estadio){
-        this.tieneEstadio.add(estadio);
+        this.estadios.add(estadio);
     }
 }

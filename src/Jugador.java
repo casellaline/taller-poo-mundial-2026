@@ -1,3 +1,4 @@
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,46 +8,76 @@ public class Jugador extends Persona{
     private Posicion posicion;
     private float peso;
     private float altura;
-    private Seleccion integraSeleccion;
-    private List<Evento> involucraEvento;
+    private Seleccion seleccion;
+    private ArrayList<Evento> eventos;
     // constructor
-    public void Jugador(){
-        this.involucraEvento= new ArrayList<Evento>();
-    }
-    public Jugador(String nombre, int fecNacimiento, int dorsal, Posicion posicion, float peso, float altura, Seleccion integraSeleccion,List<Evento> involucraEvento){
+
+    public Jugador(String nombre, int fecNacimiento, int dorsal,
+                   Posicion posicion, float peso, float altura, Seleccion seleccion){
         super(nombre, fecNacimiento);
         this.dorsal=dorsal;
         this.posicion=posicion;
         this.peso=peso;
         this.altura=altura;
-        this.integraSeleccion=integraSeleccion;
-        this.involucraEvento=involucraEvento;
+        this.seleccion=seleccion;
+        this.eventos=new ArrayList<Evento>();
     }
-
+    public Jugador(){
+        this.eventos= new ArrayList<Evento>();
+    }
     //Getters y Setters
-
-    public void agregarEvento(Evento evento) {
-        this.involucraEvento.add(evento);
-    }
 
     public int getDorsal() {
         return dorsal;
+    }
+
+    public void setDorsal(int dorsal) {
+        this.dorsal = dorsal;
     }
 
     public Posicion getPosicion() {
         return posicion;
     }
 
+    public void setPosicion(Posicion posicion) {
+        this.posicion = posicion;
+    }
+
     public float getPeso() {
         return peso;
+    }
+
+    public void setPeso(float peso) {
+        this.peso = peso;
     }
 
     public float getAltura() {
         return altura;
     }
 
-    public Seleccion getIntegraSeleccion() {
-        return integraSeleccion;
+    public void setAltura(float altura) {
+        this.altura = altura;
     }
-    //Mostrar evento
+
+    public Seleccion getSeleccion() {
+        return seleccion;
+    }
+
+    public void setSeleccion(Seleccion seleccion) {
+        this.seleccion = seleccion;
+    }
+
+    public ArrayList<Evento> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(ArrayList<Evento> eventos) {
+        this.eventos = eventos;
+    }
+
+    public void agregarEventos(Evento evento){
+        this.eventos.add(evento);
+        evento.asociarJugador(this);
+    }
+
 }

@@ -2,6 +2,10 @@ public class Participacion {
     private boolean esLocal;
     private Seleccion seleccion;
     private Partido partido;
+
+    public Participacion(){
+    }
+
     public Participacion(boolean esLocal, Seleccion seleccion) {
         this.esLocal = esLocal;
         this.seleccion = seleccion;
@@ -9,21 +13,31 @@ public class Participacion {
     }
     //Getters y Setters
 
-    public void asociarPartido(Partido partido) {
-        this.partido = partido;
-    }
-
     public boolean isEsLocal() {
         return esLocal;
+    }
+
+    public void setEsLocal(boolean esLocal) {
+        this.esLocal = esLocal;
     }
 
     public Seleccion getSeleccion() {
         return seleccion;
     }
 
+    public void asociarSeleccion(Seleccion seleccion) {
+        this.seleccion = seleccion;
+    }
+
     public Partido getPartido() {
         return partido;
     }
+
+    public void asociarPartido(Partido partido) {
+        this.partido = partido;
+    }
+
+
     //Metodos
 
     public int cantidadGoles(){

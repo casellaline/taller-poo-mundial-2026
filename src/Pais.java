@@ -4,46 +4,77 @@ import java.util.List;
 public class Pais {
     private String nombre;
     private String bandera;
-    private List<Sede> perteneceSede;
-    private List<Arbitro> cuentaConArbitro;
-    private List<Seleccion> representaSeleccion;
+    private List<Sede> sedes;
+    private List<Arbitro> arbitros;
+    private List<Seleccion> seleccion;
     //Constructor
     public Pais(){
-        this.perteneceSede= new ArrayList<Sede>();
-        this.cuentaConArbitro=new ArrayList<Arbitro>();
-        this.representaSeleccion= new ArrayList<Seleccion>();
+        this.sedes= new ArrayList<Sede>();
+        this.arbitros=new ArrayList<Arbitro>();
+        this.seleccion= new ArrayList<Seleccion>();
 
     }
     public Pais(String nombre, String bandera){
         this.nombre=nombre;
         this.bandera=bandera;
+        this.sedes= new ArrayList<Sede>();
+        this.arbitros=new ArrayList<Arbitro>();
+        this.seleccion= new ArrayList<Seleccion>();
     }
-    public Pais(String nombre, String bandera, List<Sede> perteneceSede, List<Arbitro> cuentaConArbitro, List<Seleccion> representaSeleccion){
-        this.nombre=nombre;
-        this.bandera=bandera;
-        this.perteneceSede=perteneceSede;
-        this.cuentaConArbitro=cuentaConArbitro;
-        this.representaSeleccion=representaSeleccion;
-    }
+
     //Getters y setters
 
     public String getNombre() {
         return nombre;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getBandera() {
         return bandera;
     }
 
-    public void asociarSede(Sede sede) {
-        this.perteneceSede.add(sede);
+    public void setBandera(String bandera) {
+        this.bandera = bandera;
     }
 
-    public void asociarArbitro(Arbitro arbitro) {
-        this.cuentaConArbitro.add(arbitro);
+    public List<Sede> getSedes() {
+        return sedes;
     }
 
-    public void asociarSeleccion(Seleccion seleccion) {
-        this.representaSeleccion.add(seleccion);
+    public void setSedes(List<Sede> sedes) {
+        this.sedes = sedes;
+    }
+
+    public void asociarSede(Sede sede){
+        this.sedes.add(sede);
+        sede.setPertenecePais(this);
+    }
+
+    public List<Arbitro> getArbitros() {
+        return arbitros;
+    }
+
+    public void setArbitros(List<Arbitro> arbitros) {
+        this.arbitros = arbitros;
+    }
+
+    public void agregarArbitros(Arbitro arbitro){
+        this.arbitros.add(arbitro);
+        arbitro.setCuentaConPais(this);
+    }
+
+    public List<Seleccion> getSeleccion() {
+        return seleccion;
+    }
+
+    public void setSeleccion(List<Seleccion> seleccion) {
+        this.seleccion = seleccion;
+    }
+    public void asociarSeleccion(Seleccion seleccion){
+        this.seleccion.add(seleccion);
+        seleccion.setPais(this);
     }
 }

@@ -2,6 +2,8 @@ public abstract class Persona {
     private String nombre;
     private int fecNacimiento;
     //Constructor
+    public Persona(){
+    }
     public Persona(String nombre, int fecNacimiento){
         this.nombre=nombre;
         this.fecNacimiento=fecNacimiento;
