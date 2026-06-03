@@ -1,4 +1,5 @@
-import java.sql.Array;
+//A
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class Jugador extends Persona{
     private float peso;
     private float altura;
     private Seleccion seleccion;
-    private ArrayList<Evento> eventos;
+    private List<Evento> eventos;//
     // constructor
 
     public Jugador(String nombre, int fecNacimiento, int dorsal,
@@ -67,17 +68,17 @@ public class Jugador extends Persona{
         this.seleccion = seleccion;
     }
 
-    public ArrayList<Evento> getEventos() {
+    public List<Evento> getEventos() {
         return eventos;
     }
 
-    public void setEventos(ArrayList<Evento> eventos) {
+    public void setEventos(List<Evento> eventos) {
         this.eventos = eventos;
     }
 
     public void agregarEventos(Evento evento){
         this.eventos.add(evento);
-        evento.asociarJugador(this);
+        evento.setjugador(this);
     }
 
 }

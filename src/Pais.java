@@ -1,3 +1,5 @@
+//A
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,12 +8,12 @@ public class Pais {
     private String bandera;
     private List<Sede> sedes;
     private List<Arbitro> arbitros;
-    private List<Seleccion> seleccion;
+    private List<Seleccion> selecciones;
     //Constructor
     public Pais(){
         this.sedes= new ArrayList<Sede>();
         this.arbitros=new ArrayList<Arbitro>();
-        this.seleccion= new ArrayList<Seleccion>();
+        this.selecciones= new ArrayList<Seleccion>();
 
     }
     public Pais(String nombre, String bandera){
@@ -19,7 +21,7 @@ public class Pais {
         this.bandera=bandera;
         this.sedes= new ArrayList<Sede>();
         this.arbitros=new ArrayList<Arbitro>();
-        this.seleccion= new ArrayList<Seleccion>();
+        this.selecciones= new ArrayList<Seleccion>();
     }
 
     //Getters y setters
@@ -67,14 +69,14 @@ public class Pais {
     }
 
     public List<Seleccion> getSeleccion() {
-        return seleccion;
+        return selecciones;
     }
 
     public void setSeleccion(List<Seleccion> seleccion) {
-        this.seleccion = seleccion;
+        this.selecciones = seleccion;
     }
     public void asociarSeleccion(Seleccion seleccion){
-        this.seleccion.add(seleccion);
+        this.selecciones.add(seleccion);
         seleccion.setPais(this);
     }
 }

@@ -1,3 +1,5 @@
+//A
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,5 +78,6 @@ public class Sede {
 
     public void agregarEstadio(Estadio estadio){
         this.estadios.add(estadio);
+        estadio.setSede(this);
     }
 }
