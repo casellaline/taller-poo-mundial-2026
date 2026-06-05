@@ -6,39 +6,64 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestionDelegaciones {
-    private List<Pais> paises;
-    private List<Sede> sedes;
-    private List<Seleccion> selecciones;
+    private List<Pais> paisesRegistrados;
+    private List<Seleccion> seleccionesInscriptas;
 
     //Constructores
     public GestionDelegaciones(){
-        this.paises= new ArrayList<Pais>();
-        this.sedes= new ArrayList<Sede>();
-        this.selecciones= new ArrayList<Seleccion>();
-        inicializarDatosBase();
+        this.paisesRegistrados= new ArrayList<Pais>();
+        this.seleccionesInscriptas= new ArrayList<Seleccion>();
     }
 
-    //metodo para la carga inicial
-
-    private void inicializarDatosBase(){
-        Pais argentina= new Pais("Argentina","Celeste y Blanco");
-        this.paises.add(argentina);
-
-        Sede sedeBsAs = new Sede("Buenos Aires", 25.0f,"Templado","GMT-3",argentina );
-        this.sedes.add(sedeBsAs);
-
-        Estadio monumental = new Estadio("Monumental",80000,sedeBsAs);
-        sedeBsAs.agregarEstadio(monumental);
-
-    }
     //metodos para la carga
-    public Sede registrarNuevaSede(){}
 
-    public void registrarNuevoEstadio(Sede sedeDestino){}
+    public void registrarPais (Pais pais){
+        this.paisesRegistrados.add(pais);
+    }
+    public void registrarNuevaSeleccion(Seleccion seleccion){
+        this.seleccionesInscriptas.add(seleccion);
+    }
 
-    public void registrarNuevaSeleccion(Pais pais){}
+    /**
+     * Intenta inscribir un Jugador en una Selección.
+     * Retorna true si tuvo éxito, o false si el jugador ya pertenece a otra.
+     */
 
-    public void agregarJugadorASeleccion(Seleccion seleccion){}
+    public boolean inscribirJugador(Seleccion seleccionDestino, Jugador nuevoJugador){
 
-    public void agregarCuerpoTecnico(Seleccion seleccion){}
+        for (int i =0; i< seleccionesInscriptas.size(); i++){
+
+            Seleccion seleccionActual = seleccionesInscriptas.get(i);
+            List<Jugador> grupoJugadores =seleccionActual.getJugadores();
+
+            // Se recorre la lista de jugadores de ese grupo
+
+            for (int j=0; j < grupoJugadores.size();j++) {
+                Jugador jugadorRegistrado = grupoJugadores.get(j);
+
+                if (jugadorRegistrado.getNombre().equals(nuevoJugador.getNombre())){
+                    System.out.println("Error de validación: El jugador " + nuevoJugador.getNombre() +
+                            " ya se encuentra vinculado a la selección de " +
+                            seleccionActual.getNombreFederacion());
+
+                return false; //Se rechaza la inscripción
+                }
+            }
+        }
+        seleccionDestino.getJugadores().add(nuevoJugador);
+        System.out.println("Jugador: "+ nuevoJugador.getNombre()+ " inscripto correctamente.");
+        return true;
+    }
+
+    //Metodo para buscar una selección por nombre
+
+    public Seleccion buscarSeleccionPorNombre(String nombreBuscado){
+        for (int i=0; i<seleccionesInscriptas.size();i++){
+            Seleccion seleccion= seleccionesInscriptas.get(i);
+            if (seleccion.getNombreFederacion().equals(nombreBuscado)){
+                return seleccion;
+            }
+        }
+        return null;
+    }
 }
