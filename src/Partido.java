@@ -121,7 +121,7 @@ public class Partido {
 
     public void agregarEvento(TipoEvento tipo, int minuto, Jugador jugador) {
         Evento nuevoEvento = new Evento(tipo, minuto);
-        nuevoEvento.setInvolucraJugador(jugador); // Asegura el vínculo bidireccional
+        nuevoEvento.setjugador(jugador);
         this.eventos.add(nuevoEvento);
     }
 }

@@ -5,13 +5,13 @@ public class Evento {
 
     //Constructores
 
-    public Evento(){
+    public Evento() {
     }
 
     public Evento(TipoEvento tipo, int minuto) {
         this.tipo = tipo;
         this.minuto = minuto;
-        this.jugador=null;
+        this.jugador = null;
     }
 
 
@@ -39,6 +39,10 @@ public class Evento {
 
     public void setjugador(Jugador jugador) {
         this.jugador = jugador;
-        jugador.agregarEventos(this);
+        jugador.getEventos().add(this);
+    }
+    public void setInvolucraJugador(Jugador jugador) {
+        this.jugador = jugador;
     }
 }
+

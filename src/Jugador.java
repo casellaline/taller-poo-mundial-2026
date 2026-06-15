@@ -78,7 +78,7 @@ public class Jugador extends Persona{
 
     public void agregarEventos(Evento evento){
         this.eventos.add(evento);
-        evento.setjugador(this);
+        evento.setInvolucraJugador(this);
     }
 
 }

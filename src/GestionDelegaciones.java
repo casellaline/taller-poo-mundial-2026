@@ -32,7 +32,7 @@ public class GestionDelegaciones {
     public void inscribirJugador(Seleccion seleccionDestino, Jugador nuevoJugador) throws JugadorYaInscriptoException {
         for (Seleccion seleccionActual : seleccionesInscriptas) {
             for (Jugador jugadorRegistrado : seleccionActual.getJugadores()) {
-                if (jugadorRegistrado.getNombre().equalsIgnoreCase(nuevoJugador.getNombre())) {
+                if (jugadorRegistrado == nuevoJugador) {
                     throw new JugadorYaInscriptoException("Error de validación: El jugador " + nuevoJugador.getNombre() +
                             " ya se encuentra vinculado a la selección de " +
                             seleccionActual.getNombreFederacion());

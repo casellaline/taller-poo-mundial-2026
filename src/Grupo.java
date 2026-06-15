@@ -63,9 +63,9 @@ public class Grupo {
         // Recorremos las participaciones de la selección directamente
         for (Participacion part : s.getParticipaciones()) {
             Partido p = part.getPartido();
+            if (p == null) continue;
 
-            // Filtramos que el partido pertenezca a la fase de este grupo específico
-            if (p.getCorrespondeFase().equals(this.incluyeFase)) {
+            if (p.getCorrespondeFase() != null && p.getCorrespondeFase().equals(this.incluyeFase)) {
 
                 int golesPropios = part.cantidadGoles();
 

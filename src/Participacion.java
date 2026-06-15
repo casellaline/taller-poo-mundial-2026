@@ -52,22 +52,18 @@ public class Participacion {
     }
 
     private int contarEventosPorTipo(TipoEvento tipoBuscado) {
+        if (this.partido == null) return 0;
         int contador = 0;
-
-        // Recorremos la lista de eventos asumiendo que partido y lista existen
         for (Evento eventoActual : this.partido.getEventos()) {
-
             if (eventoActual.getTipo() == tipoBuscado) {
                 Jugador jugadorInvolucrado = eventoActual.getInvolucraJugador();
+                if (jugadorInvolucrado == null) continue;
                 Seleccion seleccionDelJugador = jugadorInvolucrado.getSeleccion();
-
-                // Verificamos si el evento pertenece a la selección de esta participación
                 if (this.seleccion.equals(seleccionDelJugador)) {
                     contador++;
                 }
             }
         }
-
         return contador;
     }
 }
