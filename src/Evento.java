@@ -44,5 +44,8 @@ public class Evento {
     public void setInvolucraJugador(Jugador jugador) {
         this.jugador = jugador;
     }
+    public void setInvolucraJugador(Jugador jugador) {
+        this.jugador = jugador;
+    }
 }
 
