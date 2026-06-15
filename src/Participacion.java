@@ -39,14 +39,35 @@ public class Participacion {
 
 
     //Metodos
+    public int cantidadGoles() {
+        return contarEventosPorTipo(TipoEvento.GOL);
+    }
 
-    public int cantidadGoles(){
-        return 0;
+    public int cantidadTarjAmarillas() {
+        return contarEventosPorTipo(TipoEvento.TARJETA_AMARILLA);
     }
-    public int cantidadTarjAmarillas(){
-        return 0;
+
+    public int cantidadTarjRojas() {
+        return contarEventosPorTipo(TipoEvento.TARJETA_ROJA);
     }
-    public int cantidadTarjRojas(){
-        return 0;
+
+    private int contarEventosPorTipo(TipoEvento tipoBuscado) {
+        int contador = 0;
+
+        // Recorremos la lista de eventos asumiendo que partido y lista existen
+        for (Evento eventoActual : this.partido.getEventos()) {
+
+            if (eventoActual.getTipo() == tipoBuscado) {
+                Jugador jugadorInvolucrado = eventoActual.getInvolucraJugador();
+                Seleccion seleccionDelJugador = jugadorInvolucrado.getSeleccion();
+
+                // Verificamos si el evento pertenece a la selección de esta participación
+                if (this.seleccion.equals(seleccionDelJugador)) {
+                    contador++;
+                }
+            }
+        }
+
+        return contador;
     }
 }

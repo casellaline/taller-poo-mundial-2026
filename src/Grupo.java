@@ -58,7 +58,29 @@ public class Grupo {
     }
     //Metodos
 
-    public int obtenerPuntos(Seleccion s){
-        return 0;
+    public int obtenerPuntos(Seleccion s) {
+        int puntos = 0;
+        // Recorremos las participaciones de la selección directamente
+        for (Participacion part : s.getParticipaciones()) {
+            Partido p = part.getPartido();
+
+            // Filtramos que el partido pertenezca a la fase de este grupo específico
+            if (p.getCorrespondeFase().equals(this.incluyeFase)) {
+
+                int golesPropios = part.cantidadGoles();
+
+                // Identificamos quién es el rival en este partido para comparar goles
+                Participacion rival = (p.getEquipoLocal() == part) ? p.getEquipoVisitante() : p.getEquipoLocal();
+                int golesRivales = rival.cantidadGoles();
+
+                if (golesPropios > golesRivales) {
+                    puntos += 3; // Victoria
+                } else if (golesPropios == golesRivales) {
+                    puntos += 1; // Empate
+                }
+            }
+        }
+
+        return puntos;
     }
 }

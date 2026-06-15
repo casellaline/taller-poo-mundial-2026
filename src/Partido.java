@@ -12,24 +12,25 @@ public class Partido {
     private Participacion equipoVisitante;
     private List<Arbitraje> arbitrajes;
     private List<Evento> eventos;
+
     //Constructores
-    public Partido (){
-        this.arbitrajes=new ArrayList<Arbitraje>();
-        this.eventos=new ArrayList<Evento>();
+    public Partido() {
+        this.arbitrajes = new ArrayList<Arbitraje>();
+        this.eventos = new ArrayList<Evento>();
     }
 
     public Partido(int fecha, int horario, int duracion, int tiempoAdicional,
                    Estadio seDesarrolla, Fase correspondeFase,
-                   Participacion equipoLocal, Participacion equipoVisitante ) {
+                   Participacion equipoLocal, Participacion equipoVisitante) {
         this.fecha = fecha;
-        this.horario=horario;
-        this.duracion=duracion;
-        this.tiempoAdicional=tiempoAdicional;
-        this.seDesarrolla=seDesarrolla;
-        this.correspondeFase=correspondeFase;
-        this.equipoLocal=equipoLocal;
-        this.equipoVisitante=equipoVisitante;
-        this.eventos=new ArrayList<Evento>();
+        this.horario = horario;
+        this.duracion = duracion;
+        this.tiempoAdicional = tiempoAdicional;
+        this.seDesarrolla = seDesarrolla;
+        this.correspondeFase = correspondeFase;
+        this.equipoLocal = equipoLocal;
+        this.equipoVisitante = equipoVisitante;
+        this.eventos = new ArrayList<Evento>();
     }
     //Getters y Setter
 
@@ -105,7 +106,7 @@ public class Partido {
         this.arbitrajes = arbitrajes;
     }
 
-    public void agregarArbitraje(Arbitraje arbitraje){
+    public void agregarArbitraje(Arbitraje arbitraje) {
         this.arbitrajes.add(arbitraje);
         arbitraje.setPartido(this);
     }
@@ -118,8 +119,9 @@ public class Partido {
         this.eventos = eventos;
     }
 
-    public void agregarEvento(TipoEvento tipo, int minuto){
-
-        this.eventos.add( new Evento (tipo, minuto));
+    public void agregarEvento(TipoEvento tipo, int minuto, Jugador jugador) {
+        Evento nuevoEvento = new Evento(tipo, minuto);
+        nuevoEvento.setInvolucraJugador(jugador); // Asegura el vínculo bidireccional
+        this.eventos.add(nuevoEvento);
     }
 }
