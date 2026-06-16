@@ -33,7 +33,7 @@ public class Participacion {
         return partido;
     }
 
-    public void asociarPartido(Partido partido) {
+    public void setPartido(Partido partido) {
         this.partido = partido;
     }
 

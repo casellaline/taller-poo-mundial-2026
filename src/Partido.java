@@ -28,9 +28,11 @@ public class Partido {
         this.tiempoAdicional = tiempoAdicional;
         this.seDesarrolla = seDesarrolla;
         this.correspondeFase = correspondeFase;
-        this.equipoLocal = equipoLocal;
-        this.equipoVisitante = equipoVisitante;
+
+        this.setEquipoLocal(equipoLocal);
+        this.setEquipoVisitante(equipoVisitante);
         this.eventos = new ArrayList<Evento>();
+        this.arbitrajes = new ArrayList<Arbitraje>();
     }
     //Getters y Setter
 
@@ -88,6 +90,9 @@ public class Partido {
 
     public void setEquipoLocal(Participacion equipoLocal) {
         this.equipoLocal = equipoLocal;
+        if (this.equipoLocal != null){
+            this.equipoLocal.setPartido(this);
+        }
     }
 
     public Participacion getEquipoVisitante() {
@@ -96,6 +101,9 @@ public class Partido {
 
     public void setEquipoVisitante(Participacion equipoVisitante) {
         this.equipoVisitante = equipoVisitante;
+        if (this.equipoVisitante !=null){
+            this.equipoVisitante.setPartido(this);
+        }
     }
 
     public List<Arbitraje> getArbitrajes() {
@@ -124,4 +132,17 @@ public class Partido {
         nuevoEvento.setjugador(jugador);
         this.eventos.add(nuevoEvento);
     }
+
+    // Método extra para facilitar las iteraciones en los cálculos de puntos
+    public List<Participacion> getParticipaciones() {
+        List<Participacion> ambasParticipaciones = new ArrayList<>();
+        if (this.equipoLocal != null) {
+            ambasParticipaciones.add(this.equipoLocal);
+        }
+        if (this.equipoVisitante != null) {
+            ambasParticipaciones.add(this.equipoVisitante);
+        }
+        return ambasParticipaciones;
+    }
+
 }

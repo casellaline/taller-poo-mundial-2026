@@ -20,7 +20,7 @@ public class Jugador extends Persona{
         this.posicion=posicion;
         this.peso=peso;
         this.altura=altura;
-        this.seleccion=seleccion;
+        this.seleccion=seleccion;//nula?
         this.eventos=new ArrayList<Evento>();
     }
     public Jugador(){

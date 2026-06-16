@@ -58,6 +58,46 @@ public class Grupo {
     }
     //Metodos
 
+    public int obtenerPuntos (Seleccion s){
+        int puntos =0;
+
+        if (s == null || s.getParticipaciones()==null){
+            return 0;
+        }
+        for(Participacion part : s.getParticipaciones()){
+            if (part != null && part.getPartido() != null){
+                Partido partido = part.getPartido();
+                Fase faseDelPartido = partido.getCorrespondeFase();
+
+                //Verificamos que el partido sea específicamente de la fase de grupos
+                if (faseDelPartido != null && faseDelPartido.getNombre()== NombreFase.GRUPOS){
+                    Participacion rival = null;
+
+                    // 4. Identificamos al rival de forma segura usando .equals()
+                    if (partido.getEquipoLocal() !=null && !partido.getEquipoLocal().equals(part)){
+                        rival = partido.getEquipoLocal();
+                    } else if (partido.getEquipoVisitante() !=null && !partido.getEquipoVisitante().equals(part)) {
+                       rival=partido.getEquipoVisitante();
+                    }
+
+                    // 5. Comparamos los goles y sumamos si encontramos al rival
+                    if (rival != null){
+                        int goles= part.cantidadGoles();
+                        int golesRival =rival.cantidadGoles();
+
+                        if(goles > golesRival){
+                            puntos +=3; //Victoria
+                        } else if (goles == golesRival) {
+                            puntos +=1; // Empate
+                        }
+                    }
+                }
+            }
+        }
+        return puntos;
+    }
+
+    /**
     public int obtenerPuntos(Seleccion s) {
         int puntos = 0;
         // Recorremos las participaciones de la selección directamente
@@ -83,4 +123,5 @@ public class Grupo {
 
         return puntos;
     }
+     */
 }
