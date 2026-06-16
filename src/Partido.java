@@ -6,83 +6,67 @@ public class Partido {
     private int horario;
     private int duracion;
     private int tiempoAdicional;
-    private Estadio seDesarrolla;
+    private Estadio seDesarrollaEn;
     private Fase correspondeFase;
     private Participacion equipoLocal;
     private Participacion equipoVisitante;
     private List<Arbitraje> arbitrajes;
     private List<Evento> eventos;
 
-    //Constructores
+    // Constructores
     public Partido() {
         this.arbitrajes = new ArrayList<Arbitraje>();
         this.eventos = new ArrayList<Evento>();
     }
 
+    // Constructor
     public Partido(int fecha, int horario, int duracion, int tiempoAdicional,
-                   Estadio seDesarrolla, Fase correspondeFase,
+                   Estadio seDesarrollaEn, Fase correspondeFase,
                    Participacion equipoLocal, Participacion equipoVisitante) {
+
+        // 1. Asignación directa de tipos básicos
         this.fecha = fecha;
         this.horario = horario;
         this.duracion = duracion;
         this.tiempoAdicional = tiempoAdicional;
-        this.seDesarrolla = seDesarrolla;
+        this.seDesarrollaEn = seDesarrollaEn;
         this.correspondeFase = correspondeFase;
 
-        this.setEquipoLocal(equipoLocal);
-        this.setEquipoVisitante(equipoVisitante);
+        // 2. Asignación directa de objetos + Validación de nulos (sin usar el setter)
+        this.equipoLocal = equipoLocal;
+        if (this.equipoLocal != null) {
+            this.equipoLocal.asociarPartido(this); // Mantenemos la bidireccionalidad
+        }
+
+        this.equipoVisitante = equipoVisitante;
+        if (this.equipoVisitante != null) {
+            this.equipoVisitante.asociarPartido(this);
+        }
+
+        // 3. Declarado como List arriba, inicializado como ArrayList acá abajo
         this.eventos = new ArrayList<Evento>();
         this.arbitrajes = new ArrayList<Arbitraje>();
     }
-    //Getters y Setter
 
-    public int getFecha() {
-        return fecha;
-    }
+    // Getters y Setters
 
-    public void setFecha(int fecha) {
-        this.fecha = fecha;
-    }
+    public int getFecha() { return fecha; }
+    public void setFecha(int fecha) { this.fecha = fecha; }
 
-    public int getHorario() {
-        return horario;
-    }
+    public int getHorario() { return horario; }
+    public void setHorario(int horario) { this.horario = horario; }
 
-    public void setHorario(int horario) {
-        this.horario = horario;
-    }
+    public int getDuracion() { return duracion; }
+    public void setDuracion(int duracion) { this.duracion = duracion; }
 
-    public int getDuracion() {
-        return duracion;
-    }
+    public int getTiempoAdicional() { return tiempoAdicional; }
+    public void setTiempoAdicional(int tiempoAdicional) { this.tiempoAdicional = tiempoAdicional; }
 
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
-    }
+    public Estadio getSeDesarrollaEn() { return seDesarrollaEn; }
+    public void setSeDesarrollaEn(Estadio seDesarrollaEn) { this.seDesarrollaEn = seDesarrollaEn; }
 
-    public int getTiempoAdicional() {
-        return tiempoAdicional;
-    }
-
-    public void setTiempoAdicional(int tiempoAdicional) {
-        this.tiempoAdicional = tiempoAdicional;
-    }
-
-    public Estadio getSeDesarrolla() {
-        return seDesarrolla;
-    }
-
-    public void setSeDesarrolla(Estadio seDesarrolla) {
-        this.seDesarrolla = seDesarrolla;
-    }
-
-    public Fase getCorrespondeFase() {
-        return correspondeFase;
-    }
-
-    public void setCorrespondeFase(Fase correspondeFase) {
-        this.correspondeFase = correspondeFase;
-    }
+    public Fase getCorrespondeFase() { return correspondeFase; }
+    public void setCorrespondeFase(Fase correspondeFase) { this.correspondeFase = correspondeFase; }
 
     public Participacion getEquipoLocal() {
         return equipoLocal;
@@ -90,8 +74,8 @@ public class Partido {
 
     public void setEquipoLocal(Participacion equipoLocal) {
         this.equipoLocal = equipoLocal;
-        if (this.equipoLocal != null){
-            this.equipoLocal.setPartido(this);
+        if (this.equipoLocal != null) {
+            this.equipoLocal.asociarPartido(this);
         }
     }
 
@@ -101,8 +85,9 @@ public class Partido {
 
     public void setEquipoVisitante(Participacion equipoVisitante) {
         this.equipoVisitante = equipoVisitante;
-        if (this.equipoVisitante !=null){
-            this.equipoVisitante.setPartido(this);
+        if (this.equipoVisitante != null) {
+            // Cambiado a asociarPartido
+            this.equipoVisitante.asociarPartido(this);
         }
     }
 
@@ -127,11 +112,9 @@ public class Partido {
         this.eventos = eventos;
     }
 
-    public void agregarEvento(TipoEvento tipo, int minuto, Jugador jugador) {
-        Evento nuevoEvento = new Evento(tipo, minuto);
-        nuevoEvento.setjugador(jugador);
-        this.eventos.add(nuevoEvento);
-    }
 
-
+//sobrecarga de agregar evento para cuando sea directamente un objeto de tipo evente el parametro
+public void agregarEvento(Evento evento) {
+    this.eventos.add(evento);
+}
 }

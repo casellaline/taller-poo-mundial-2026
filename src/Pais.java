@@ -52,7 +52,7 @@ public class Pais {
 
     public void asociarSede(Sede sede){
         this.sedes.add(sede);
-        sede.setPertenecePais(this);
+        sede.setPais(this);
     }
 
     public List<Arbitro> getArbitros() {
@@ -63,16 +63,16 @@ public class Pais {
         this.arbitros = arbitros;
     }
 
-    public void agregarArbitros(Arbitro arbitro){
+    public void agregarArbitro(Arbitro arbitro){
         this.arbitros.add(arbitro);
         arbitro.setCuentaConPais(this);
     }
 
-    public List<Seleccion> getSeleccion() {
+    public List<Seleccion> getSelecciones() {
         return selecciones;
     }
 
-    public void setSeleccion(List<Seleccion> seleccion) {
+    public void setSelecciones(List<Seleccion> seleccion) {
         this.selecciones = seleccion;
     }
     public void asociarSeleccion(Seleccion seleccion){

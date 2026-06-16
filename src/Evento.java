@@ -3,7 +3,7 @@ public class Evento {
     private int minuto;
     private Jugador jugador;
 
-    //Constructores
+    // Constructores
 
     public Evento() {
     }
@@ -11,11 +11,9 @@ public class Evento {
     public Evento(TipoEvento tipo, int minuto) {
         this.tipo = tipo;
         this.minuto = minuto;
-        this.jugador = null;
     }
 
-
-    //Getters y Setters
+    // Getters y Setters
 
     public TipoEvento getTipo() {
         return tipo;
@@ -37,12 +35,8 @@ public class Evento {
         return jugador;
     }
 
-    public void setjugador(Jugador jugador) {
-        this.jugador = jugador;
-        jugador.getEventos().add(this);
-    }
+    // Único setter puro para evitar la recursión (bucle infinito)
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
 }
-

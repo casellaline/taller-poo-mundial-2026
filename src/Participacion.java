@@ -33,7 +33,7 @@ public class Participacion {
         return partido;
     }
 
-    public void setPartido(Partido partido) {
+    public void asociarPartido(Partido partido) {
         this.partido = partido;
     }
 
@@ -57,10 +57,10 @@ public class Participacion {
             // Filtramos por el tipo de evento que buscamos
             if (eventoActual.getTipo() == tipoBuscado) {
 
-                Jugador jugadorInvolucrado = eventoActual.getInvolucraJugador();
+                Jugador jugadorInvolucrado = eventoActual.getJugador();
 
                 // Si el jugador existe (no es null), entramos a sumar
-                if (jugadorInvolucrado == null) {
+                if (jugadorInvolucrado != null) {
                     Seleccion seleccionDelJugador = jugadorInvolucrado.getSeleccion();
 
                     //Comparamos las selecciones

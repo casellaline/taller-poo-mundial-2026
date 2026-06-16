@@ -12,7 +12,6 @@ public class Arbitraje {
     }
     //Getters & Setters
 
-
     public CategoriaArbitro getRol() {
         return rol;
     }

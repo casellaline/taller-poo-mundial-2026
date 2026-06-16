@@ -43,7 +43,6 @@ public class Estadio {
 
     public void setSede(Sede sede) {
         this.sede = sede;
-        sede.agregarEstadio(this);
     }
 
     public List<Partido> getPartidos() {
@@ -57,5 +56,6 @@ public class Estadio {
     public void agregarPartido(Partido partido) {
         this.partidos.add(partido);
     }
+
 }
 

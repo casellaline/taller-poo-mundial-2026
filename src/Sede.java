@@ -1,5 +1,3 @@
-//A
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,25 +6,24 @@ public class Sede {
     private float alturaNivelMar;
     private String clima;
     private String zonaHoraria;
-    private Pais pertenecePais;
+    private Pais pais; // Corregido para que sea un sustantivo claro
     private List<Estadio> estadios;
 
-    //Constructor
-
-    public Sede(){
-        this.estadios=new ArrayList<Estadio>();
+    // Constructor vacío
+    public Sede() {
+        this.estadios = new ArrayList<Estadio>();
     }
 
-    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria,
-                Pais pertenecePais) {
+    // Constructor parametrizado (Sin el País, para obligar a usar la asociación segura)
+    public Sede(String ciudad, float alturaNivelMar, String clima, String zonaHoraria) {
         this.ciudad = ciudad;
         this.alturaNivelMar = alturaNivelMar;
         this.clima = clima;
         this.zonaHoraria = zonaHoraria;
-        this.pertenecePais=pertenecePais;
         this.estadios = new ArrayList<Estadio>();
     }
-    //Getters & Setters
+
+    // Getters & Setters
 
     public String getCiudad() {
         return ciudad;
@@ -60,12 +57,13 @@ public class Sede {
         this.zonaHoraria = zonaHoraria;
     }
 
-    public Pais getPertenecePais() {
-        return pertenecePais;
+    public Pais getPais() {
+        return pais;
     }
 
-    public void setPertenecePais(Pais pertenecePais) {
-        this.pertenecePais = pertenecePais;
+    // Este setter lo usa la clase Pais en su método asociarSede
+    public void setPais(Pais pais) {
+        this.pais = pais;
     }
 
     public List<Estadio> getEstadios() {
@@ -76,7 +74,8 @@ public class Sede {
         this.estadios = estadios;
     }
 
-    public void agregarEstadio(Estadio estadio){
+    // Excelente manejo bidireccional
+    public void agregarEstadio(Estadio estadio) {
         this.estadios.add(estadio);
         estadio.setSede(this);
     }

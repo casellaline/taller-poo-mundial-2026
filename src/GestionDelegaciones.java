@@ -1,42 +1,43 @@
-//Gestión de Infraestructura: Registrar Sedes y Estadios con su respectiva capacidad.
-//
-// Gestionar los Países participantes, sus Selecciones, cuerpos técnicos y la lista de Jugadores.
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Gestora encargada de la administración de delegaciones: registro de países,
  * inscripción de selecciones y alta de jugadores con sus validaciones.
  */
-import java.util.ArrayList;
-import java.util.List;
-
 public class GestionDelegaciones {
+    // Declaración como interfaz List, tal como indicaron los profesores
     private List<Pais> paisesRegistrados;
     private List<Seleccion> seleccionesInscriptas;
 
-    //Constructores
-    public GestionDelegaciones(){
-        this.paisesRegistrados= new ArrayList<Pais>();
-        this.seleccionesInscriptas= new ArrayList<Seleccion>();
+    // Constructores inicializando con la clase concreta ArrayList
+    public GestionDelegaciones() {
+        this.paisesRegistrados = new ArrayList<Pais>();
+        this.seleccionesInscriptas = new ArrayList<Seleccion>();
     }
 
-    //metodos para la carga
+    // Métodos para la carga
 
-    public void registrarPais (Pais pais){
+    public void registrarPais(Pais pais) {
         this.paisesRegistrados.add(pais);
     }
-    public void registrarNuevaSeleccion(Seleccion seleccion){
+
+    public void registrarNuevaSeleccion(Seleccion seleccion) {
         this.seleccionesInscriptas.add(seleccion);
     }
 
-    public List<Pais> getPaisesRegistrados() { return this.paisesRegistrados; }
+    public List<Pais> getPaisesRegistrados() {
+        return this.paisesRegistrados;
+    }
 
-    public List<Seleccion> getSeleccionesInscriptas() { return this.seleccionesInscriptas; }
-
+    public List<Seleccion> getSeleccionesInscriptas() {
+        return this.seleccionesInscriptas;
+    }
 
     /**
      * Inscribe un Jugador en una Selección.
-     * validando previamente que el jugador no esté vinculado a ninguna otra selección del sistema.
+     * Validando previamente que el jugador no esté vinculado a ninguna otra selección del sistema.
      */
-
     public void inscribirJugador(Seleccion seleccionDestino, Jugador nuevoJugador) throws JugadorYaInscriptoException {
         for (Seleccion seleccionActual : this.seleccionesInscriptas) {
             for (Jugador jugadorRegistrado : seleccionActual.getJugadores()) {
@@ -50,12 +51,12 @@ public class GestionDelegaciones {
         seleccionDestino.agregarJugador(nuevoJugador);
     }
 
-    //Metodo para buscar una selección por nombre
-
-    public Seleccion buscarSeleccionPorNombre(String nombreBuscado){
-        for (int i=0; i<this.seleccionesInscriptas.size();i++){
-            Seleccion seleccion= this.seleccionesInscriptas.get(i);
-            if (seleccion.getNombreFederacion().equals(nombreBuscado)){
+    // Método para buscar una selección por nombre
+    public Seleccion buscarSeleccionPorNombre(String nombreBuscado) {
+        // Bucle for-each limpio
+        for (Seleccion seleccion : this.seleccionesInscriptas) {
+            // Usamos ignoreCase para que sea más robusta la búsqueda
+            if (seleccion.getNombreFederacion().equalsIgnoreCase(nombreBuscado)) {
                 return seleccion;
             }
         }

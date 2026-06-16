@@ -8,7 +8,8 @@ public class Arbitro extends Persona{
 
     //Constructores
     public Arbitro(){
-        this.arbitrajes= new ArrayList<Arbitraje>();
+        super(); // Llama al constructor vacío de Persona
+        this.arbitrajes = new ArrayList<Arbitraje>();
     }
 
     public Arbitro(String nombre, int fecNacimiento, int aniosExperiencia,

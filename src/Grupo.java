@@ -1,127 +1,80 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class Grupo {
     private String identificacion;
     private String descripcion;
     private Fase incluyeFase;
-    private List<Seleccion> selecciones;
-    //Constructor
+    // Aplicamos ArrayList puro como vimos en las soluciones oficiales
+    private ArrayList<Seleccion> selecciones;
 
-    public Grupo(){
-        this.selecciones=new ArrayList<Seleccion>();
+    // Constructores
+    public Grupo() {
+        this.selecciones = new ArrayList<Seleccion>();
     }
 
     public Grupo(String identificacion, String descripcion, Fase incluyeFase) {
+        // Asignación directa pura
         this.identificacion = identificacion;
         this.descripcion = descripcion;
         this.incluyeFase = incluyeFase;
         this.selecciones = new ArrayList<Seleccion>();
     }
-    //Getter
 
-    public String getIdentificacion() {
-        return identificacion;
-    }
+    // Getters y Setters puros
 
-    public void setIdentificacion(String identificacion) {
-        this.identificacion = identificacion;
-    }
+    public String getIdentificacion() { return identificacion; }
+    public void setIdentificacion(String identificacion) { this.identificacion = identificacion; }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+    public Fase getIncluyeFase() { return incluyeFase; }
+    public void setIncluyeFase(Fase incluyeFase) { this.incluyeFase = incluyeFase; }
 
-    public Fase getIncluyeFase() {
-        return incluyeFase;
-    }
+    public ArrayList<Seleccion> getSelecciones() { return selecciones; }
+    public void setSelecciones(ArrayList<Seleccion> selecciones) { this.selecciones = selecciones; }
 
-    public void setIncluyeFase(Fase incluyeFase) {
-        this.incluyeFase = incluyeFase;
-    }
-
-    public List<Seleccion> getSelecciones() {
-        return selecciones;
-    }
-
-    public void setSelecciones(List<Seleccion> selecciones) {
-        this.selecciones = selecciones;
-    }
-
-    public void asociarSeleccion(Seleccion seleccion){
+    public void asociarSeleccion(Seleccion seleccion) {
         this.selecciones.add(seleccion);
         seleccion.setGrupo(this);
     }
-    //Metodos
 
-    public int obtenerPuntos (Seleccion s){
-        int puntos =0;
+    // Métodos
 
-        if (s == null || s.getParticipaciones()==null){
-            return 0;
-        }
-        for(Participacion part : s.getParticipaciones()){
-            if (part != null && part.getPartido() != null){
-                Partido partido = part.getPartido();
-                Fase faseDelPartido = partido.getCorrespondeFase();
-
-                //Verificamos que el partido sea específicamente de la fase de grupos
-                if (faseDelPartido != null && faseDelPartido.getNombre()== NombreFase.GRUPOS){
-                    Participacion rival = null;
-
-                    // 4. Identificamos al rival de forma segura usando .equals()
-                    if (partido.getEquipoLocal() !=null && !partido.getEquipoLocal().equals(part)){
-                        rival = partido.getEquipoLocal();
-                    } else if (partido.getEquipoVisitante() !=null && !partido.getEquipoVisitante().equals(part)) {
-                       rival=partido.getEquipoVisitante();
-                    }
-
-                    // 5. Comparamos los goles y sumamos si encontramos al rival
-                    if (rival != null){
-                        int goles= part.cantidadGoles();
-                        int golesRival =rival.cantidadGoles();
-
-                        if(goles > golesRival){
-                            puntos +=3; //Victoria
-                        } else if (goles == golesRival) {
-                            puntos +=1; // Empate
-                        }
-                    }
-                }
-            }
-        }
-        return puntos;
-    }
-
-    /**
     public int obtenerPuntos(Seleccion s) {
         int puntos = 0;
-        // Recorremos las participaciones de la selección directamente
+
+        // Confiamos en que la lista está inicializada, recorremos directo
         for (Participacion part : s.getParticipaciones()) {
-            Partido p = part.getPartido();
-            if (p == null) continue;
+            Partido partido = part.getPartido();
 
-            if (p.getCorrespondeFase() != null && p.getCorrespondeFase().equals(this.incluyeFase)) {
+            // 1. Regla 0..1 de la cátedra: Validamos que haya partido y fase asignada
+            // Comparamos los objetos Fase directamente
+            if (partido != null && partido.getCorrespondeFase() != null &&
+                    partido.getCorrespondeFase().equals(this.incluyeFase)) {
 
-                int golesPropios = part.cantidadGoles();
+                Participacion rival = null;
 
-                // Identificamos quién es el rival en este partido para comparar goles
-                Participacion rival = (p.getEquipoLocal() == part) ? p.getEquipoVisitante() : p.getEquipoLocal();
-                int golesRivales = rival.cantidadGoles();
+                // 2. Identificamos al rival comparando referencias de memoria (==)
+                if (partido.getEquipoLocal() == part) {
+                    rival = partido.getEquipoVisitante();
+                } else if (partido.getEquipoVisitante() == part) {
+                    rival = partido.getEquipoLocal();
+                }
 
-                if (golesPropios > golesRivales) {
-                    puntos += 3; // Victoria
-                } else if (golesPropios == golesRivales) {
-                    puntos += 1; // Empate
+                // 3. Regla 0..1: Validamos que el rival ya esté definido en el partido
+                if (rival != null) {
+                    int goles = part.cantidadGoles();
+                    int golesRival = rival.cantidadGoles();
+
+                    if (goles > golesRival) {
+                        puntos += 3; // Victoria
+                    } else if (goles == golesRival) {
+                        puntos += 1; // Empate
+                    }
                 }
             }
         }
-
         return puntos;
     }
-     */
 }

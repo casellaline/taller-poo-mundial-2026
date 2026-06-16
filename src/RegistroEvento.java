@@ -46,9 +46,19 @@ public class RegistroEvento {
             throw new JugadorNoPerteneceAlPartidoException(
                     "El jugador " + jugador.getNombre() + " no pertenece a ninguna de las selecciones del partido.");
         }
+
+        // 1. Orquestación tradicional desde la Gestora:
+        // Le avisamos al jugador que participó en este evento
+        jugador.agregarEvento(evento);
+
+        // Le pasamos el MISMO evento al partido
         partido.agregarEvento(evento);
+
+        // Lo guardamos en el registro general
         this.eventosRegistrados.add(evento);
     }
-
     public List<Evento> getEventosRegistrados() { return this.eventosRegistrados; }
-}
+    }
+
+
+

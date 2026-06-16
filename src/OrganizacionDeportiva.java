@@ -3,8 +3,8 @@
  * Gestora encargada de la organización deportiva: configuración de grupos y
  * fases, planificación de partidos y validación del equipo de arbitraje.
  */
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 public class OrganizacionDeportiva {
     private List<Partido> todosLosPartidos;
     private List<Grupo> gruposMundial;
@@ -44,8 +44,8 @@ public class OrganizacionDeportiva {
  * Valida que un partido tenga un equipo de arbitraje válido (con árbitro
  * principal). Lanza excepción si no lo cumple.
  */
-public void validarArbitroPrincipal (Partido partdo) throws PartidoSinArbitroPrincipalException{
-    if (!this.tieneArbitroPrincipal(partdo)){
+public void validarArbitroPrincipal (Partido partido) throws PartidoSinArbitroPrincipalException{
+    if (!this.tieneArbitroPrincipal(partido)){
         throw new PartidoSinArbitroPrincipalException("El partido no tiene asignado un árbitro con rol Principal.");
     }
 }

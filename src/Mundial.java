@@ -5,20 +5,20 @@ public class Mundial {
     private int anio;
     private String mascota;
     private int fechaDesde;
-    private int fechasHasta;
+    private int fechaHasta;
     private List<Sede> sedes;
 
     //Constructores
 
     public Mundial(){
-
+        this.sedes=new ArrayList<Sede>();
     }
 
     public Mundial(int anio, String mascota, int fechaDesde, int fechasHasta) {
         this.anio = anio;
         this.mascota = mascota;
         this.fechaDesde = fechaDesde;
-        this.fechasHasta = fechasHasta;
+        this.fechaHasta = fechasHasta;
         this.sedes=new ArrayList<Sede>();
     }
     //Getters y Setters
@@ -48,11 +48,11 @@ public class Mundial {
     }
 
     public int getFechasHasta() {
-        return fechasHasta;
+        return fechaHasta;
     }
 
     public void setFechasHasta(int fechasHasta) {
-        this.fechasHasta = fechasHasta;
+        this.fechaHasta = fechasHasta;
     }
 
     public List<Sede> getSedes() {
