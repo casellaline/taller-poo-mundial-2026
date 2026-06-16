@@ -133,16 +133,5 @@ public class Partido {
         this.eventos.add(nuevoEvento);
     }
 
-    // Método extra para facilitar las iteraciones en los cálculos de puntos
-    public List<Participacion> getParticipaciones() {
-        List<Participacion> ambasParticipaciones = new ArrayList<>();
-        if (this.equipoLocal != null) {
-            ambasParticipaciones.add(this.equipoLocal);
-        }
-        if (this.equipoVisitante != null) {
-            ambasParticipaciones.add(this.equipoVisitante);
-        }
-        return ambasParticipaciones;
-    }
 
 }
