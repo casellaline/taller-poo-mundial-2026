@@ -38,30 +38,37 @@ public class Participacion {
     }
 
 
-    //Metodos
-    public int cantidadGoles() {
-        return contarEventosPorTipo(TipoEvento.GOL);
+
+    public int cantidadGoles() {return contarEventosPorTipo(TipoEvento.GOL)+ contarEventosPorTipo(TipoEvento.PENAL_CONVERTIDO);
     }
 
     public int cantidadTarjAmarillas() {
-        return contarEventosPorTipo(TipoEvento.TARJETA_AMARILLA);
+        return contarEventosPorTipo(TipoEvento.TARJETA_AMARILLA)+ contarEventosPorTipo(TipoEvento.DOBLE_AMARILLA);
     }
 
     public int cantidadTarjRojas() {
-        return contarEventosPorTipo(TipoEvento.TARJETA_ROJA);
+        return contarEventosPorTipo(TipoEvento.TARJETA_ROJA)+ contarEventosPorTipo(TipoEvento.DOBLE_AMARILLA);
     }
 
     private int contarEventosPorTipo(TipoEvento tipoBuscado) {
         if (this.partido == null) return 0;
         int contador = 0;
         for (Evento eventoActual : this.partido.getEventos()) {
+            // Filtramos por el tipo de evento que buscamos
             if (eventoActual.getTipo() == tipoBuscado) {
+
                 Jugador jugadorInvolucrado = eventoActual.getInvolucraJugador();
-                if (jugadorInvolucrado == null) continue;
-                Seleccion seleccionDelJugador = jugadorInvolucrado.getSeleccion();
-                if (this.seleccion.equals(seleccionDelJugador)) {
-                    contador++;
+
+                // Si el jugador existe (no es null), entramos a sumar
+                if (jugadorInvolucrado == null) {
+                    Seleccion seleccionDelJugador = jugadorInvolucrado.getSeleccion();
+
+                    //Comparamos las selecciones
+                    if (this.seleccion.equals(seleccionDelJugador)) {
+                        contador++;
+                    }
                 }
+
             }
         }
         return contador;

@@ -33,7 +33,7 @@ public class Evento {
         this.minuto = minuto;
     }
 
-    public Jugador getInvolucraJugador() {
+    public Jugador getJugador() {
         return jugador;
     }
 
@@ -41,7 +41,7 @@ public class Evento {
         this.jugador = jugador;
         jugador.getEventos().add(this);
     }
-    public void setInvolucraJugador(Jugador jugador) {
+    public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
 }
