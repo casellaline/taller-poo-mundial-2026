@@ -9,13 +9,13 @@ public class OrganizacionDeportiva {
     private List<Partido> todosLosPartidos;
     private List<Grupo> gruposMundial;
 
-    // 1. Constructor: Listas inicializadas vacías
+    // Constructor
     public OrganizacionDeportiva() {
         this.todosLosPartidos = new ArrayList<>();
         this.gruposMundial = new ArrayList<>();
     }
 
-    // 2. MÉTODOS CREADORES (El Main pasa los datos, la Gestora hace el "new")
+    // MÉTODOS CREADORES (El Main pasa los datos, la Gestora hace el "new")
 
     public Grupo configurarGrupo(String identificacion, String descripcion, Fase fase) {
         Grupo nuevoGrupo = new Grupo(identificacion, descripcion, fase);
@@ -40,14 +40,14 @@ public class OrganizacionDeportiva {
         this.gruposMundial.add(grupo);
     }
 
-    // 3. GETTERS Y SETTERS
+    // GETTERS Y SETTERS
     public List<Partido> getTodosLosPartidos() { return this.todosLosPartidos; }
     public void setTodosLosPartidos(List<Partido> todosLosPartidos) { this.todosLosPartidos = todosLosPartidos; }
 
     public List<Grupo> getGruposMundial() { return this.gruposMundial; }
     public void setGruposMundial(List<Grupo> gruposMundial) { this.gruposMundial = gruposMundial; }
 
-    // 4. LÓGICA DE VALIDACIÓN
+    // VALIDACIÓN
     public boolean tieneArbitroPrincipal(Partido partido) {
         if (partido == null) {
             return false;

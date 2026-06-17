@@ -1,6 +1,7 @@
 
 /**
- * Gestora de informes del sistema. Concentra los reportes solicitados:
+ * Gestora de informes del sistema.
+ * reportes solicitados:
  * tabla de posiciones por grupo, resultados por selección, ranking de
  * goleadores, informe disciplinario, ficha técnica de partido y estadísticas
  * de sedes.
@@ -11,13 +12,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public class GeneradorInformes {
-    /**
-     * Gestora de delegaciones de la que obtiene países y selecciones.
-     */
     private GestionDelegaciones gestionDelegaciones;
-    /**
-     * Gestora deportiva de la que obtiene partidos y grupos.
-     */
+
     private OrganizacionDeportiva organizacionDeportiva;
 
     public GeneradorInformes(GestionDelegaciones gestionDelegaciones, OrganizacionDeportiva organizacionDeportiva) {

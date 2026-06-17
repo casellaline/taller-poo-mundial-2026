@@ -5,7 +5,7 @@ public class GestoraInfraestructura {
     private Mundial mundial;
     private List<Sede> sedes;
 
-    // Constructor: Inicializamos la lista vacía siguiendo la corrección del tutor
+    // Constructor
     public GestoraInfraestructura() {
         this.sedes = new ArrayList<>();
     }
@@ -26,7 +26,7 @@ public class GestoraInfraestructura {
         return nuevaSede;
     }
 
-    // Método para crear el estadio y clavarlo adentro de la sede
+    // Método para crear el estadio y agregarlo adentro de la sede
     public Estadio registrarEstadio(String nombre, int capacidad, Sede sede) {
         Estadio nuevoEstadio = new Estadio(nombre, capacidad, sede);
         sede.agregarEstadio(nuevoEstadio);
