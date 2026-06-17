@@ -9,7 +9,7 @@ public class OrganizacionDeportiva {
     private List<Partido> todosLosPartidos;
     private List<Grupo> gruposMundial;
 
-    // 1. Constructor: Listas inicializadas vacías (¡Perfecto!)
+    // 1. Constructor: Listas inicializadas vacías
     public OrganizacionDeportiva() {
         this.todosLosPartidos = new ArrayList<>();
         this.gruposMundial = new ArrayList<>();
@@ -40,14 +40,14 @@ public class OrganizacionDeportiva {
         this.gruposMundial.add(grupo);
     }
 
-    // 3. GETTERS Y SETTERS (¡Completos para cumplir la corrección!)
+    // 3. GETTERS Y SETTERS
     public List<Partido> getTodosLosPartidos() { return this.todosLosPartidos; }
     public void setTodosLosPartidos(List<Partido> todosLosPartidos) { this.todosLosPartidos = todosLosPartidos; }
 
     public List<Grupo> getGruposMundial() { return this.gruposMundial; }
     public void setGruposMundial(List<Grupo> gruposMundial) { this.gruposMundial = gruposMundial; }
 
-    // 4. LÓGICA DE VALIDACIÓN (¡Impecable, no se toca!)
+    // 4. LÓGICA DE VALIDACIÓN
     public boolean tieneArbitroPrincipal(Partido partido) {
         if (partido == null) {
             return false;

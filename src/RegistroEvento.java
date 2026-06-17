@@ -9,12 +9,12 @@ public class RegistroEvento {
 
     private List<Evento> eventosRegistrados;
 
-    // 1. Constructor: Nace vacío
+    // Constructor: Nace vacío
     public RegistroEvento() {
         this.eventosRegistrados = new ArrayList<>();
     }
 
-    // 2. Método Creador: Recibe los datos crudos, hace el "new", valida y orquesta
+    // Método Creador: Recibe los datos crudos, hace el "new", valida y crea
     public Evento registrarEvento(Partido partido, TipoEvento tipo, int minuto, Jugador jugador)
             throws JugadorNoPerteneceAlPartidoException {
 

@@ -50,7 +50,7 @@ public class GestionDelegaciones {
         seleccion.agregarCuerpoTecnico(integrante);
     }
 
-    // 3. GETTERS Y SETTERS COMPLETO (Para que el tutor no tenga de dónde quejarse)
+    // 3. GETTERS Y SETTERS COMPLETO
 
     public List<Pais> getPaisesRegistrados() { return this.paisesRegistrados; }
     public void setPaisesRegistrados(List<Pais> paisesRegistrados) { this.paisesRegistrados = paisesRegistrados; }
