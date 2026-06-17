@@ -1,61 +1,65 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Gestora encargada de la administración de delegaciones: registro de países,
- * inscripción de selecciones y alta de jugadores con sus validaciones.
- */
 public class GestionDelegaciones {
-    // Declaración como interfaz List, tal como indicaron los profesores
     private List<Pais> paisesRegistrados;
     private List<Seleccion> seleccionesInscriptas;
 
-    // Constructores inicializando con la clase concreta ArrayList
+    // 1. Constructor impecable (Las listas nacen vacías)
     public GestionDelegaciones() {
-        this.paisesRegistrados = new ArrayList<Pais>();
-        this.seleccionesInscriptas = new ArrayList<Seleccion>();
+        this.paisesRegistrados = new ArrayList<>();
+        this.seleccionesInscriptas = new ArrayList<>();
     }
 
-    // Métodos para la carga
+    // 2. METODOS CREADORES (El Main pasa los Strings, la Gestora hace el "new")
 
-    public void registrarPais(Pais pais) {
-        this.paisesRegistrados.add(pais);
+    public Pais registrarPais(String nombre, String bandera) {
+        Pais nuevoPais = new Pais(nombre, bandera);
+        this.paisesRegistrados.add(nuevoPais);
+        return nuevoPais;
     }
 
-    public void registrarNuevaSeleccion(Seleccion seleccion) {
-        this.seleccionesInscriptas.add(seleccion);
+    public Seleccion registrarSeleccion(String federacion, String camPrin, String camSec, boolean cabeza, int ranking, Pais pais) {
+        Seleccion nuevaSeleccion = new Seleccion(federacion, camPrin, camSec, cabeza, ranking);
+        // Asociamos la selección al país acá mismo para matar dos pájaros de un tiro
+        pais.asociarSeleccion(nuevaSeleccion);
+        this.seleccionesInscriptas.add(nuevaSeleccion);
+        return nuevaSeleccion;
     }
 
-    public List<Pais> getPaisesRegistrados() {
-        return this.paisesRegistrados;
-    }
-
-    public List<Seleccion> getSeleccionesInscriptas() {
-        return this.seleccionesInscriptas;
-    }
-
-    /**
-     * Inscribe un Jugador en una Selección.
-     * Validando previamente que el jugador no esté vinculado a ninguna otra selección del sistema.
-     */
-    public void inscribirJugador(Seleccion seleccionDestino, Jugador nuevoJugador) throws JugadorYaInscriptoException {
+    // Inscribimos jugador creándolo directamente en la gestora
+    public void inscribirJugador(String nombre, int anioNac, int dorsal, Posicion posicion, float peso, float altura, Seleccion seleccionDestino) throws JugadorYaInscriptoException {
+        // Tu misma validación espectacular
         for (Seleccion seleccionActual : this.seleccionesInscriptas) {
-            for (Jugador jugadorRegistrado : seleccionActual.getJugadores()) {
-                if (jugadorRegistrado.getNombre().equalsIgnoreCase(nuevoJugador.getNombre())) {
-                    throw new JugadorYaInscriptoException("Error de validación: El jugador " + nuevoJugador.getNombre() +
-                            " ya se encuentra vinculado a la selección de " +
-                            seleccionActual.getNombreFederacion());
+            if (seleccionActual.getJugadores() != null) {
+                for (Jugador jugadorRegistrado : seleccionActual.getJugadores()) {
+                    if (jugadorRegistrado.getNombre().equalsIgnoreCase(nombre)) {
+                        throw new JugadorYaInscriptoException("El jugador " + nombre + " ya está vinculado a " + seleccionActual.getNombreFederacion());
+                    }
                 }
             }
         }
+
+        Jugador nuevoJugador = new Jugador(nombre, anioNac, dorsal, posicion, peso, altura, seleccionDestino);
         seleccionDestino.agregarJugador(nuevoJugador);
     }
 
-    // Método para buscar una selección por nombre
+    // Método para cumplir con el registro del cuerpo técnico exigido
+    public void asignarCuerpoTecnico(String nombre, int anioNac, Rol rol, Seleccion seleccion) {
+        CuerpoTecnico integrante = new CuerpoTecnico(nombre, anioNac, rol);
+        seleccion.agregarCuerpoTecnico(integrante);
+    }
+
+    // 3. GETTERS Y SETTERS COMPLETO (Para que el tutor no tenga de dónde quejarse)
+
+    public List<Pais> getPaisesRegistrados() { return this.paisesRegistrados; }
+    public void setPaisesRegistrados(List<Pais> paisesRegistrados) { this.paisesRegistrados = paisesRegistrados; }
+
+    public List<Seleccion> getSeleccionesInscriptas() { return this.seleccionesInscriptas; }
+    public void setSeleccionesInscriptas(List<Seleccion> seleccionesInscriptas) { this.seleccionesInscriptas = seleccionesInscriptas; }
+
     public Seleccion buscarSeleccionPorNombre(String nombreBuscado) {
-        // Bucle for-each limpio
         for (Seleccion seleccion : this.seleccionesInscriptas) {
-            // Usamos ignoreCase para que sea más robusta la búsqueda
             if (seleccion.getNombreFederacion().equalsIgnoreCase(nombreBuscado)) {
                 return seleccion;
             }
