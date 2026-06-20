@@ -45,8 +45,8 @@ public class Grupo {
         int puntos = 0;
 
         // Confiamos en que la lista está inicializada, recorremos directo
-        for (Participacion part : s.getParticipaciones()) {
-            Partido partido = part.getPartido();
+        for (Participacion parti : s.getParticipaciones()) {
+            Partido partido = parti.getPartido();
 
             // 1. Regla 0..1 de la cátedra: Validamos que haya partido y fase asignada
             // Comparamos los objetos Fase directamente
@@ -56,15 +56,15 @@ public class Grupo {
                 Participacion rival = null;
 
                 // 2. Identificamos al rival comparando referencias de memoria (==)
-                if (partido.getEquipoLocal() == part) {
+                if (partido.getEquipoLocal().equals(parti)) {
                     rival = partido.getEquipoVisitante();
-                } else if (partido.getEquipoVisitante() == part) {
+                } else if (partido.getEquipoVisitante() == parti) {
                     rival = partido.getEquipoLocal();
                 }
 
                 // 3. Regla 0..1: Validamos que el rival ya esté definido en el partido
                 if (rival != null) {
-                    int goles = part.cantidadGoles();
+                    int goles = parti.cantidadGoles();
                     int golesRival = rival.cantidadGoles();
 
                     if (goles > golesRival) {

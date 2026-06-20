@@ -10,9 +10,11 @@ public class OrganizacionDeportiva {
     private List<Grupo> gruposMundial;
 
     // Constructor
-    public OrganizacionDeportiva() {
-        this.todosLosPartidos = new ArrayList<>();
-        this.gruposMundial = new ArrayList<>();
+
+
+    public OrganizacionDeportiva(List<Partido> todosLosPartidos, List<Grupo> gruposMundial) {
+        this.todosLosPartidos = todosLosPartidos;
+        this.gruposMundial = gruposMundial;
     }
 
     // MÉTODOS CREADORES (El Main pasa los datos, la Gestora hace el "new")
@@ -71,4 +73,7 @@ public class OrganizacionDeportiva {
             throw new PartidoSinArbitroPrincipalException("El partido no tiene asignado un árbitro con rol Principal.");
         }
     }
+
+
+
 }

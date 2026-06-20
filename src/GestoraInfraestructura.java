@@ -6,8 +6,9 @@ public class GestoraInfraestructura {
     private List<Sede> sedes;
 
     // Constructor
-    public GestoraInfraestructura() {
-        this.sedes = new ArrayList<>();
+
+    public GestoraInfraestructura(List<Sede> sedes) {
+        this.sedes = sedes;
     }
 
     // Método para instanciar el Mundial

@@ -6,9 +6,11 @@ public class GestionDelegaciones {
     private List<Seleccion> seleccionesInscriptas;
 
     // Constructor
-    public GestionDelegaciones() {
-        this.paisesRegistrados = new ArrayList<>();
-        this.seleccionesInscriptas = new ArrayList<>();
+
+
+    public GestionDelegaciones(List<Pais> paisesRegistrados, List<Seleccion> seleccionesInscriptas) {
+        this.paisesRegistrados = paisesRegistrados;
+        this.seleccionesInscriptas = seleccionesInscriptas;
     }
 
     // METODOS CREADORES (El Main pasa los Strings, la Gestora hace el "new")
