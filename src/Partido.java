@@ -99,9 +99,16 @@ public class Partido {
         this.arbitrajes = arbitrajes;
     }
 
+    /**
+     * Agrega un objeto Arbitraje (la asignación de un rol a un árbitro)
+     * a la lista de arbitrajes de este partido.
+     * @param arbitraje El objeto Arbitraje ya instanciado.
+     */
     public void agregarArbitraje(Arbitraje arbitraje) {
-        this.arbitrajes.add(arbitraje);
-        arbitraje.setPartido(this);
+        if(arbitraje !=null){
+            this.arbitrajes.add(arbitraje);
+            arbitraje.setPartido(this);
+        }
     }
 
     public List<Evento> getEventos() {
@@ -112,9 +119,35 @@ public class Partido {
         this.eventos = eventos;
     }
 
+    public void agregarEvento(Evento evento) throws JugadorNoPerteneceAlPartidoException {
 
-//sobrecarga de agregar evento para cuando sea directamente un objeto de tipo evente el parametro
-public void agregarEvento(Evento evento) {
-    this.eventos.add(evento);
-}
+        // 1. Obtenemos el jugador que está dentro del evento que intentan registrar
+        Jugador jugadorImplicado = evento.getJugador();
+
+        // 2. Verificamos si el jugador pertenece a la selección del equipo local o visitante.
+        // (Nota: Ajusta los "getSeleccion()" y "getJugadores()" según los nombres exactos de tus getters)
+        boolean juegaLocal = false;
+        if (this.equipoLocal != null && this.equipoLocal.getSeleccion() != null) {
+            juegaLocal = this.equipoLocal.getSeleccion().getJugadores().contains(jugadorImplicado);
+        }
+
+        boolean juegaVisitante = false;
+        if (this.equipoVisitante != null && this.equipoVisitante.getSeleccion() != null) {
+            juegaVisitante = this.equipoVisitante.getSeleccion().getJugadores().contains(jugadorImplicado);
+        }
+
+        // 3. Si no juega ni de local ni de visitante, ¡Lanzamos la excepción!
+        if (!juegaLocal && !juegaVisitante) {
+            throw new JugadorNoPerteneceAlPartidoException("El jugador ingresado no forma parte de ninguno de los dos equipos de este partido.");
+        }
+
+        // 4. Si pasó la validación de arriba, entonces sí lo agregamos a la lista
+        this.eventos.add(evento);}
+
+        /* * Opcional: Si en algún momento decides agregar 'private Partido partido;'
+         * dentro de la clase Evento (bidireccionalidad), el enlace inverso lo harías aquí así:
+         * evento.setPartido(this);
+         */
+
+
 }

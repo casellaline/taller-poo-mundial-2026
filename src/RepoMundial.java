@@ -7,6 +7,7 @@ public class RepoMundial {
     private List<Sede> sedes;
     private List<Partido> partidos;
     private List<Grupo> gruposMundial;
+    private List<Arbitro> arbitros;
 
     public RepoMundial() {
         this.paises = new ArrayList<>();
@@ -14,6 +15,7 @@ public class RepoMundial {
         this.sedes = new ArrayList<>();
         this.partidos = new ArrayList<>();
         this.gruposMundial = new ArrayList<>();
+        this.arbitros= new ArrayList<>();
     }
 
     public List<Pais> getPaises() {
@@ -34,5 +36,9 @@ public class RepoMundial {
 
     public List<Grupo> getGruposMundial() {
         return gruposMundial;
+    }
+
+    public List<Arbitro> getArbitros(){
+        return arbitros;
     }
 }

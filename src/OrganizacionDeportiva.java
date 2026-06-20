@@ -32,6 +32,19 @@ public class OrganizacionDeportiva {
         this.todosLosPartidos.add(nuevoPartido);
         return nuevoPartido;
     }
+    /**
+     * Busca un partido por su fecha.
+     * @param fecha La fecha del partido a buscar (Ej. 20260615)
+     * @return El objeto Partido si lo encuentra, o null si no existe.
+     */
+    public Partido buscarPartidoPorFecha(int fecha) {
+        for (Partido partido : this.todosLosPartidos) {
+            if (partido.getFecha() == fecha) {
+                return partido;
+            }
+        }
+        return null;
+    }
 
     // Métodos para agregar objetos ya creados (Los mantenemos por las dudas)
     public void agregarPartido(Partido partido) {

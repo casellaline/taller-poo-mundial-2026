@@ -17,14 +17,15 @@ public class Main {
 
         GestionDelegaciones delegaciones = new GestionDelegaciones(
                 repositorio.getPaises(),
-                repositorio.getSelecciones()
+                repositorio.getSelecciones(),
+                repositorio.getArbitros()
         );
 
         OrganizacionDeportiva organizacionDeportiva = new OrganizacionDeportiva(
                 repositorio.getPartidos(),
                 repositorio.getGruposMundial());
 
-        GestoraInfraestructura gestoraInfraestructura = new GestoraInfraestructura(
+        GestoraInfraestructura infraestructura = new GestoraInfraestructura(
                 repositorio.getSedes()
         );
 
@@ -35,7 +36,7 @@ public class Main {
         RegistroEvento eventoNuevo = new RegistroEvento();
 
         // El Generador de Informes recibe a las gestoras para poder leer sus datos
-        GeneradorInformes generadorInformes = new GeneradorInformes(
+        GeneradorInformes informes = new GeneradorInformes(
                 delegaciones,
                 organizacionDeportiva);
 
@@ -43,18 +44,13 @@ public class Main {
         // PASO 4: CARGA DE DATOS INICIALES (Hardcodeados)
         // ==========================================================
         // Cumpliendo la consigna de la profesora: la carga se aísla en un método aparte.
-        // InicializadorDatos.cargarDatosDePrueba(gestoraDelegaciones, gestoraInfraestructura, gestoraDeportiva);
+        InicializadorDatos.cargarDatosDePrueba(delegaciones, infraestructura, organizacionDeportiva);
 
         // ==========================================================
         // PASO 5: ARRANCAR EL MENÚ INTERACTIVO
         // ==========================================================
         // Le pasamos al menú todas las herramientas que necesita para trabajar
-        MenuMundial menuPrincipal = new MenuMundial(
-                gestoraDelegaciones,
-                gestoraDeportiva,
-                generadorInformes,
-                registroEvento
-        );
+        MenuMundial menuPrincipal = new MenuMundial(delegaciones, infraestructura,organizacionDeportiva, informes, eventoNuevo);
 
         // ¡Le damos play al sistema! El programa se quedará "atrapado"
         // adentro de este método hasta que el usuario elija salir (opción 0).
