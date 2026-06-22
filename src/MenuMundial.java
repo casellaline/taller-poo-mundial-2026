@@ -258,20 +258,24 @@ public class MenuMundial {
             try {
                 int opcion = Integer.parseInt(scanner.nextLine());
                 switch (opcion) {
-                    System.out.println("\n--- SELECCIONES INSCRIPTAS ---");
+                    case 1:
+                        System.out.println("\n--- SELECCIONES INSCRIPTAS ---");
+                        // Guardamos la lista en una variable temporal para validarla
+                        List<Seleccion> listaSelecciones = delegaciones.getSeleccionesInscriptas();
 
-                    // Guardamos la lista en una variable temporal para validarla
-                    List<Seleccion> listaSelecciones = delegaciones.getSeleccionesInscriptas();
 
-                    if (listaSelecciones.isEmpty()) {
+                        if (listaSelecciones.isEmpty()) {
                         System.out.println("No hay selecciones inscriptas por el momento.");
-                    } else {
+
+                        } else {
                         // Recorremos la lista de la gestora e imprimimos
                         for(Seleccion s : listaSelecciones){
                             System.out.println("- " + s.getNombreFederacion());
                         }
-                    }
-                    break;
+
+                        }
+
+                        break;
 
                     case 2:
                         System.out.println("\n>> Tabla de posiciones por grupo");
@@ -335,7 +339,7 @@ public class MenuMundial {
                                     seleccionEncontrada.getNombreFederacion().toUpperCase() + " ---");
 
                             // 3. ¡Le pedimos la información al Generador de Informes!
-                            List<String> listaResultados = informes.puntajeTotalSeleccion(seleccionEncontrada);
+                            List<String> listaResultados = informes.resultadosPorSeleccion(seleccionEncontrada);
 
                             // 4. Mostramos los resultados
                             if (listaResultados.isEmpty()) {
@@ -354,13 +358,66 @@ public class MenuMundial {
                         }
                         break;
                     case 5:
-                        System.out.println("\nInforme disciplinario por seleccion");
+                        System.out.println("\n>> Informe disciplinario por seleccion");
+                        System.out.print("Ingrese el nombre de la seleccion (Ej. 'Argentina'): ");
+                        String nombreSelDisc = scanner.nextLine().trim();
+
+                        Seleccion selDisciplina = null;
+                        for (Seleccion s : delegaciones.getSeleccionesInscriptas()) {
+                            if (s.getNombreFederacion().equalsIgnoreCase(nombreSelDisc)) {
+                                selDisciplina = s;
+                                break;
+                            }
+                        }
+
+                        if (selDisciplina == null) {
+                            System.out.println("ERROR: No se encontro ninguna seleccion con el nombre '" +
+                                    nombreSelDisc + "'.");
+                        } else {
+                            System.out.println("\n" + informes.informeDisciplinarioSeleccion(selDisciplina));
+                        }
+                        break;
                     case 6:
-                        System.out.println(">> Ficha técnica de partido");
-                        //informes.fichaTecnicaPartido(partido);
+                        System.out.println("\n>> Ficha tecnica de partido");
+                        System.out.print("Fecha del partido (Ej. 20260615): ");
+                        try {
+                            int fechaFicha = Integer.parseInt(scanner.nextLine());
+                            Partido partidoFicha = orgDeportiva.buscarPartidoPorFecha(fechaFicha);
+                            if (partidoFicha == null) {
+                                System.out.println("ERROR: No se encontro ningun partido en esa fecha.");
+                            } else {
+                                System.out.println("\n" + informes.fichaTecnicaPartido(partidoFicha));
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("ERROR: La fecha debe ser un numero entero (Ej. 20260615).");
+                        }
                         break;
                     case 7:
-                        System.out.println("\n");
+                        System.out.println("\n>> Estadisticas de sedes");
+                        System.out.print("Ingrese el nombre de la ciudad (Ej. 'Buenos Aires'): ");
+                        String nombreCiudad = scanner.nextLine().trim();
+
+                        Sede sedeEncontrada = null;
+                        for (Sede sede : infraestructura.getSedes()) {
+                            if (sede.getCiudad().equalsIgnoreCase(nombreCiudad)) {
+                                sedeEncontrada = sede;
+                                break;
+                            }
+                        }
+
+                        if (sedeEncontrada == null) {
+                            System.out.println("ERROR: No se encontro ninguna sede en la ciudad '" +
+                                    nombreCiudad + "'.");
+                        } else {
+                            System.out.println("\n--- ESTADISTICAS DE " + nombreCiudad.toUpperCase() + " ---");
+                            System.out.println("Partidos jugados en la ciudad: " +
+                                    informes.partidosEnCiudad(sedeEncontrada));
+                            for (Estadio estadio : sedeEncontrada.getEstadios()) {
+                                System.out.println("  - " + estadio.getNombre() + ": " +
+                                        informes.partidosEnEstadio(estadio) + " partido(s)");
+                            }
+                        }
+                        break;
                     case 0:
                         continuar = false; // Vuelve al menú principal
                         break;

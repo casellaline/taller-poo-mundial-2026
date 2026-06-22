@@ -64,6 +64,64 @@ public class GeneradorInformes {
     }
 
     /**
+     * Genera el detalle de resultados e instancias alcanzadas por una selección:
+     * una línea por cada partido disputado (rival, marcador y resultado) y una
+     * línea final con el puntaje total acumulado en fase de grupos.
+     *
+     * @param seleccion selección a consultar
+     * @return lista de líneas con el detalle; vacía si no disputó partidos
+     */
+    public List<String> resultadosPorSeleccion(Seleccion seleccion) {
+        List<String> resultados = new ArrayList<String>();
+        if (seleccion == null) {
+            return resultados;
+        }
+
+        for (Participacion parti : seleccion.getParticipaciones()) {
+            Partido partido = parti.getPartido();
+            if (partido == null) {
+                continue;
+            }
+
+            Participacion rival = null;
+            if (partido.getEquipoLocal().equals(parti)) {
+                rival = partido.getEquipoVisitante();
+            } else if (partido.getEquipoVisitante().equals(parti)) {
+                rival = partido.getEquipoLocal();
+            }
+            if (rival == null) {
+                continue;
+            }
+
+            int goles = parti.cantidadGoles();
+            int golesRival = rival.cantidadGoles();
+
+            String resultado;
+            if (goles > golesRival) {
+                resultado = "Victoria";
+            } else if (goles == golesRival) {
+                resultado = "Empate";
+            } else {
+                resultado = "Derrota";
+            }
+
+            String fase = (partido.getCorrespondeFase() != null)
+                    ? partido.getCorrespondeFase().getNombre().toString()
+                    : "Sin fase";
+
+            resultados.add("[" + fase + "] vs "
+                    + rival.getSeleccion().getNombreFederacion()
+                    + " " + goles + "-" + golesRival
+                    + " (" + resultado + ")");
+        }
+
+        // Línea final con el puntaje total (reutiliza el método int existente)
+        resultados.add("Puntaje total: " + puntajeTotalSeleccion(seleccion) + " pts");
+
+        return resultados;
+    }
+
+    /**
      * Genera el ranking de goleadores recorriendo los eventos de todos los
      * partidos y acumulando los goles por jugador, ordenado en forma descendente.
      */
