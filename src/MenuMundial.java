@@ -79,6 +79,10 @@ public class MenuMundial {
            System.out.println(" 2. Inscribir jugador");
            System.out.println(" 3. Asignar arbitraje a un partido ");
            System.out.println(" 4. Registrar evento en un partido");
+           System.out.println(" 5. Registrar sede y estadio");
+           System.out.println(" 6. Registrar pais");
+           System.out.println(" 7. Registrar seleccion");
+           System.out.println(" 8. Registrar arbitro");
            System.out.println(" 0. Volver al menu principal");
            System.out.println("------------------------------------------");
            System.out.print("Ingrese una opcion: ");
@@ -221,6 +225,147 @@ public class MenuMundial {
                            System.out.println("ERROR: El tipo de evento ingresado no existe.");
                        } catch (JugadorNoPerteneceAlPartidoException e) {
                            System.out.println("Error: " + e.getMessage());
+                       } catch (Exception e) {
+                           System.out.println("ERROR INESPERADO: " + e.getMessage());
+                       }
+                       break;
+
+                   case 5:
+                       System.out.println(">> Registrar Sede y Estadio");
+                       try {
+                           // 1. Datos de la sede (ciudad)
+                           System.out.print("Ciudad de la sede: ");
+                           String ciudad = scanner.nextLine();
+
+                           System.out.print("Altura sobre el nivel del mar (Ej. 25.0): ");
+                           float altura = Float.parseFloat(scanner.nextLine());
+
+                           System.out.print("Clima: ");
+                           String clima = scanner.nextLine();
+
+                           System.out.print("Zona horaria (Ej. UTC-3): ");
+                           String zonaHoraria = scanner.nextLine();
+
+                           Sede nuevaSede = infraestructura.registrarSede(ciudad, altura, clima, zonaHoraria);
+
+                           // Datos del estadio asociado a esa sede
+                           System.out.print("Nombre del estadio: ");
+                           String nombreEstadio = scanner.nextLine();
+
+                           System.out.print("Capacidad del estadio: ");
+                           int capacidad = Integer.parseInt(scanner.nextLine());
+
+                           infraestructura.registrarEstadio(nombreEstadio, capacidad, nuevaSede);
+
+                           System.out.println("Se registro la sede '" + ciudad +
+                                   "' con el estadio '" + nombreEstadio + "'.");
+                       } catch (NumberFormatException e) {
+                           System.out.println("ERROR: La altura debe ser decimal y la capacidad un numero entero.");
+                       } catch (Exception e) {
+                           System.out.println("ERROR INESPERADO: " + e.getMessage());
+                       }
+                       break;
+
+                   case 6:
+                       System.out.println(">> Registrar Pais");
+                       try {
+                           System.out.print("Nombre del pais (Ej. Argentina): ");
+                           String nombrePais = scanner.nextLine();
+
+                           System.out.print("Bandera / descripcion (Ej. Celeste y Blanca): ");
+                           String bandera = scanner.nextLine();
+
+                           delegaciones.registrarPais(nombrePais, bandera);
+
+                           System.out.println("Se registro el pais '" + nombrePais + "'.");
+                       } catch (Exception e) {
+                           System.out.println("ERROR INESPERADO: " + e.getMessage());
+                       }
+                       break;
+
+                   case 7:
+                       System.out.println(">> Registrar Seleccion");
+                       try {
+                           // La seleccion se asocia a un pais ya registrado
+                           System.out.print("Nombre del pais al que pertenece: ");
+                           String nombrePaisSel = scanner.nextLine();
+
+                           Pais paisDestino = null;
+                           for (Pais p : delegaciones.getPaisesRegistrados()) {
+                               if (p.getNombre().equalsIgnoreCase(nombrePaisSel)) {
+                                   paisDestino = p;
+                                   break;
+                               }
+                           }
+
+                           if (paisDestino == null) {
+                               System.out.println("ERROR: No se encontro ningun pais llamado '" +
+                                       nombrePaisSel + "'. Registrelo primero (opcion 6).");
+                               break;
+                           }
+
+                           System.out.print("Federacion (Ej. AFA): ");
+                           String federacion = scanner.nextLine();
+
+                           System.out.print("Camiseta principal (Ej. Celeste y Blanca): ");
+                           String camPrin = scanner.nextLine();
+
+                           System.out.print("Camiseta suplente (Ej. Azul): ");
+                           String camSec = scanner.nextLine();
+
+                           System.out.print("Es cabeza de serie? (true/false): ");
+                           boolean cabeza = Boolean.parseBoolean(scanner.nextLine().trim());
+
+                           System.out.print("Ranking FIFA (Ej. 1): ");
+                           int ranking = Integer.parseInt(scanner.nextLine());
+
+                           delegaciones.registrarSeleccion(federacion, camPrin, camSec, cabeza, ranking, paisDestino);
+
+                           System.out.println("Se registro la seleccion '" + federacion +
+                                   "' para el pais '" + paisDestino.getNombre() + "'.");
+                       } catch (NumberFormatException e) {
+                           System.out.println("ERROR: El ranking debe ser un numero entero.");
+                       } catch (Exception e) {
+                           System.out.println("ERROR INESPERADO: " + e.getMessage());
+                       }
+                       break;
+
+                   case 8:
+                       System.out.println(">> Registrar Arbitro");
+                       try {
+                           // El arbitro se asocia a un pais ya registrado
+                           System.out.print("Nombre del pais al que pertenece: ");
+                           String nombrePaisArb = scanner.nextLine();
+
+                           Pais paisArbitro = null;
+                           for (Pais p : delegaciones.getPaisesRegistrados()) {
+                               if (p.getNombre().equalsIgnoreCase(nombrePaisArb)) {
+                                   paisArbitro = p;
+                                   break;
+                               }
+                           }
+
+                           if (paisArbitro == null) {
+                               System.out.println("ERROR: No se encontro ningun pais llamado '" +
+                                       nombrePaisArb + "'. Registrelo primero (opcion 6).");
+                               break;
+                           }
+
+                           System.out.print("Nombre del arbitro: ");
+                           String nombreArbitro = scanner.nextLine();
+
+                           System.out.print("Año de nacimiento: ");
+                           int anioNac = Integer.parseInt(scanner.nextLine());
+
+                           System.out.print("Años de experiencia: ");
+                           int experiencia = Integer.parseInt(scanner.nextLine());
+
+                           Arbitro nuevoArbitro = new Arbitro(nombreArbitro, anioNac, experiencia, paisArbitro);
+                           delegaciones.registrarArbitro(nuevoArbitro);
+
+                           System.out.println("Se registro al arbitro '" + nombreArbitro + "'.");
+                       } catch (NumberFormatException e) {
+                           System.out.println("ERROR: El anio y los anios de experiencia deben ser numeros enteros.");
                        } catch (Exception e) {
                            System.out.println("ERROR INESPERADO: " + e.getMessage());
                        }
