@@ -1,8 +1,18 @@
+/**
+ * Registro auxiliar que asocia a un jugador con la cantidad de goles
+ * convertidos, usado para construir el ranking de goleadores.
+ */
 public class RegistroGoleador {
 
     private Jugador jugador;
     private int goles;
 
+    /**
+     * Crea una instancia de {@code RegistroGoleador} con los datos indicados.
+     *
+     * @param jugador jugador
+     * @param goles goles
+     */
     public RegistroGoleador(Jugador jugador, int goles) {
         this.jugador = jugador;
         this.goles = goles;

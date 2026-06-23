@@ -1,5 +1,9 @@
 import java.util.List;
 import java.util.Scanner;
+/**
+ * Menu interactivo de consola del sistema. Ofrece la gestion de datos
+ * y el acceso a los distintos informes del Mundial.
+ */
 public class MenuMundial {
     private Scanner scanner;
     private GestionDelegaciones delegaciones;
@@ -9,6 +13,15 @@ public class MenuMundial {
     private RegistroEvento registroEvento;
 
     // El constructor recibe las gestoras para poder usarlas
+    /**
+     * Crea una instancia de {@code MenuMundial} con los datos indicados.
+     *
+     * @param gd gd
+     * @param gi gi
+     * @param od od
+     * @param inf inf
+     * @param re re
+     */
     public MenuMundial(GestionDelegaciones gd, GestoraInfraestructura gi ,OrganizacionDeportiva od,
                            GeneradorInformes inf, RegistroEvento re) {
         this.scanner = new Scanner(System.in);
@@ -19,10 +32,11 @@ public class MenuMundial {
         this.registroEvento = re;
     }
 
-    // ==========================================================
-    // 1. MENÚ PRINCIPAL
-    // ==========================================================
-    public void iniciar() {
+    //MENÚ PRINCIPAL
+    /**
+     * Inicia el bucle del menu principal hasta que el usuario decide salir.
+     */
+     public void iniciar() {
         boolean continuar = true;
         while (continuar) {
             System.out.println("\n--------------- MENU PRINCIPAL ---------------");
@@ -53,9 +67,10 @@ public class MenuMundial {
             }
         }
     }
-    // ==========================================================
-    // 2. SUBMENÚ: GESTIÓN DE DATOS
-    // ==========================================================
+    // SUBMENÚ: GESTIÓN DE DATOS
+    /**
+     * Muestra el submenu de gestion de datos.
+     */
     public void mostrarMenuGestion() {
        boolean continuar = true;
        while (continuar) {
@@ -120,15 +135,14 @@ public class MenuMundial {
                    case 3:
                        System.out.println(">> Asignar Arbitraje");
                        try {
-                           // 1. Pedimos la Categoría y la pasamos a mayúsculas
+
                            System.out.print("Categoría del Árbitro (PRINCIPAL, ASISTENTE, VAR): ");
                            CategoriaArbitro categoria = CategoriaArbitro.valueOf(scanner.nextLine().toUpperCase());
 
-                           // 2. Pedimos el nombre del árbitro para buscarlo en la Gestora de Delegaciones
+
                            System.out.print("Nombre exacto del Árbitro: ");
                            String nombreArbitro = scanner.nextLine();
 
-                           // ⚠️ Asegúrate de que este método exista en GestionDelegaciones
                            Arbitro arbitroDestino = delegaciones.buscarArbitroPorNombre(nombreArbitro);
 
                            if (arbitroDestino == null) {
@@ -136,7 +150,6 @@ public class MenuMundial {
                                break; // Salimos de este case
                            }
 
-                           // 3. Pedimos la fecha para buscar el partido en la Organización Deportiva
                            System.out.print("Fecha del partido (Ej. 20260615): ");
                            int fechaPartido = Integer.parseInt(scanner.nextLine());
 
@@ -147,13 +160,10 @@ public class MenuMundial {
                                break; // Salimos de este case
                            }
 
-                           // 4. Lógica de negocio estricta: Validar que haya un PRINCIPAL antes de asignar ASISTENTES
                            if (categoria != CategoriaArbitro.PRINCIPAL) {
-                               // Usamos el método que me pasaste en tu código
                                orgDeportiva.validarArbitroPrincipal(partidoDestino);
                            }
 
-                           // 5. Si no saltó la excepción, instanciamos el arbitraje y lo agregamos
                            Arbitraje nuevoArbitraje = new Arbitraje(categoria, arbitroDestino, partidoDestino);
                            partidoDestino.agregarArbitraje(nuevoArbitraje);
 
@@ -164,7 +174,6 @@ public class MenuMundial {
                        } catch (IllegalArgumentException e) {
                            System.out.println("ERROR: La categoría ingresada no existe (Debe ser PRINCIPAL, ASISTENTE o VAR).");
                        } catch (PartidoSinArbitroPrincipalException e) {
-                           // ¡Aquí atrapamos la excepción que definiste en la Gestora!
                            System.out.println("ERROR: " + e.getMessage());
                        } catch (Exception e) {
                            System.out.println("ERROR INESPERADO: " + e.getMessage());
@@ -173,7 +182,6 @@ public class MenuMundial {
                    case 4:
                        System.out.println(">> Registrar Evento");
                        try {
-                           // 1. Pedimos la fecha para buscar el Partido
                            System.out.print("Fecha del partido (Ej. 20260615): ");
                            int fechaPartido = Integer.parseInt(scanner.nextLine());
                            Partido partidoDestino = orgDeportiva.buscarPartidoPorFecha(fechaPartido);
@@ -183,7 +191,6 @@ public class MenuMundial {
                                break; // Salimos de este case
                            }
 
-                           // 2. Pedimos el nombre para buscar al Jugador involucrado
                            System.out.print("Nombre del Jugador: ");
                            String nombreJugador = scanner.nextLine();
 
@@ -192,21 +199,17 @@ public class MenuMundial {
 
                            if (jugadorImplicado == null) {
                                System.out.println("ERROR: No se encontró ningún jugador con ese nombre.");
-                               break; // Salimos de este case
+                               break;
                            }
 
-                           // 3. Pedimos el tipo de evento y lo pasamos a Enum
                            System.out.print("Tipo de evento (GOL, TARJETA_AMARILLA, TARJETA_ROJA, CAMBIO, etc.): ");
                            TipoEvento tipo = TipoEvento.valueOf(scanner.nextLine().toUpperCase());
 
-                           // 4. Pedimos el minuto exacto
                            System.out.print("Minuto del suceso (Ej. 45): ");
                            int minuto = Integer.parseInt(scanner.nextLine());
 
-                           // 5. Instanciamos el Evento (asumo tu constructor de Evento)
                            Evento nuevoEvento = new Evento(tipo, minuto, jugadorImplicado);
 
-                           // 6. ¡Magia del encapsulamiento!
                            // El método agregarEvento() en Partido es el que debe tener el 'throw' si el jugador no juega ese partido.
                            partidoDestino.agregarEvento(nuevoEvento);
 
@@ -217,7 +220,6 @@ public class MenuMundial {
                        } catch (IllegalArgumentException e) {
                            System.out.println("ERROR: El tipo de evento ingresado no existe.");
                        } catch (JugadorNoPerteneceAlPartidoException e) {
-                           // ¡Capturamos tu excepción personalizada!
                            System.out.println("Error: " + e.getMessage());
                        } catch (Exception e) {
                            System.out.println("ERROR INESPERADO: " + e.getMessage());
@@ -225,11 +227,11 @@ public class MenuMundial {
                        break;
 
                    case 0:
-                       continuar = false; // Rompe este bucle y vuelve al Main
+                       continuar = false;
                        break;
 
                    default:
-                       System.out.println("⚠Opción inválida.");
+                       System.out.println("Opción inválida.");
                }
            } catch (NumberFormatException e) {
                System.out.println("Error: Debe ingresar un número.");
@@ -237,9 +239,11 @@ public class MenuMundial {
        }
     }
 
-    // ==========================================================
-    // 3. SUBMENÚ: CONSULTAS Y REPORTES
-    // ==========================================================
+   //  SUBMENÚ: CONSULTAS Y REPORTES
+    /**
+     * Muestra el submenu de consultas y reportes.
+     */
+
     public void mostrarMenuReportes() {
         boolean continuar = true;
         while (continuar) {
@@ -268,13 +272,11 @@ public class MenuMundial {
                         System.out.println("No hay selecciones inscriptas por el momento.");
 
                         } else {
-                        // Recorremos la lista de la gestora e imprimimos
-                        for(Seleccion s : listaSelecciones){
-                            System.out.println("- " + s.getNombreFederacion());
-                        }
 
+                            for(Seleccion s : listaSelecciones){
+                                System.out.println("- " + s.getNombreFederacion());
+                            }
                         }
-
                         break;
 
                     case 2:
@@ -282,34 +284,26 @@ public class MenuMundial {
                         System.out.print("Ingrese el nombre del grupo (Ej. 'A'): ");
                         String nombreGrupo = scanner.nextLine().trim(); // .trim() quita espacios accidentales
 
-                        // 1. Buscamos el objeto Grupo en la gestora deportiva
-                        // (Recorremos la lista usando el método que ya vi que tienes en GeneradorInformes)
                         Grupo grupoEncontrado = null;
                         for (Grupo g : orgDeportiva.getGruposMundial()) {
-                            // Asumo que tu clase Grupo tiene un getNombre(), ajusta si se llama distinto
                             if (g.getIdentificacion().equalsIgnoreCase(nombreGrupo)) {
                                 grupoEncontrado = g;
                                 break;
                             }
                         }
 
-                        // 2. Verificamos si el grupo existe
                         if (grupoEncontrado == null) {
                             System.out.println("ERROR: No se encontró ningún grupo con la letra '" + nombreGrupo + "'.");
                         } else {
-                            // 3. Llamamos al generador de informes y guardamos la tabla resultante
                             List<RegistroPosicion> tabla = informes.tablaPosicionesPorGrupo(grupoEncontrado);
 
                             System.out.println("\n--- POSICIONES GRUPO " + nombreGrupo.toUpperCase() + " ---");
 
-                            // Validamos visualmente por si el grupo está vacío
                             if (tabla.isEmpty()) {
                                 System.out.println("Aún no hay selecciones asignadas a este grupo.");
                             } else {
-                                // 4. Recorremos la tabla e imprimimos los datos
                                 int posicion = 1;
                                 for (RegistroPosicion rp : tabla) {
-                                    // Ajusta getSeleccion() y getNombreFederacion() si se llaman distinto
                                     System.out.println(posicion + "° | " + rp.getSeleccion().getNombreFederacion() + " | Puntos: " + rp.getPuntos());
                                     posicion++;
                                 }
@@ -321,7 +315,6 @@ public class MenuMundial {
                         System.out.print("Ingrese el nombre de la selección (Ej. 'Argentina'): ");
                         String nombreSeleccion = scanner.nextLine().trim();
 
-                        // 1. Buscamos la selección
                         Seleccion seleccionEncontrada = null;
                         for (Seleccion s : delegaciones.getSeleccionesInscriptas()) {
                             if (s.getNombreFederacion().equalsIgnoreCase(nombreSeleccion)) {
@@ -330,7 +323,6 @@ public class MenuMundial {
                             }
                         }
 
-                        // 2. Verificamos si existe
                         if (seleccionEncontrada == null) {
                             System.out.println("ERROR: No se encontró ninguna selección con el nombre '" +
                                     nombreSeleccion + "'.");
@@ -338,10 +330,8 @@ public class MenuMundial {
                             System.out.println("\n--- RESULTADOS DE " +
                                     seleccionEncontrada.getNombreFederacion().toUpperCase() + " ---");
 
-                            // 3. ¡Le pedimos la información al Generador de Informes!
                             List<String> listaResultados = informes.resultadosPorSeleccion(seleccionEncontrada);
 
-                            // 4. Mostramos los resultados
                             if (listaResultados.isEmpty()) {
                                 System.out.println("Esta selección aún no ha disputado ningún partido.");
                             } else {

@@ -1,19 +1,33 @@
 import java.util.ArrayList;
 
+/**
+ * Representa un grupo de la fase de grupos. Agrupa a las selecciones que
+ * lo integran y calcula los puntos obtenidos segun los resultados de sus
+ * partidos.
+ */
 public class Grupo {
     private String identificacion;
     private String descripcion;
     private Fase incluyeFase;
-    // Aplicamos ArrayList puro como vimos en las soluciones oficiales
     private ArrayList<Seleccion> selecciones;
 
     // Constructores
+
+    /**
+     * Crea una instancia vacia de {@code Grupo}.
+     */
     public Grupo() {
         this.selecciones = new ArrayList<Seleccion>();
     }
 
+    /**
+     * Crea una instancia de {@code Grupo} con los datos indicados.
+     *
+     * @param identificacion identificacion
+     * @param descripcion descripcion
+     * @param incluyeFase incluyeFase
+     */
     public Grupo(String identificacion, String descripcion, Fase incluyeFase) {
-        // Asignación directa pura
         this.identificacion = identificacion;
         this.descripcion = descripcion;
         this.incluyeFase = incluyeFase;
@@ -22,18 +36,63 @@ public class Grupo {
 
     // Getters y Setters puros
 
+    /**
+     * Devuelve identificacion.
+     * @return identificacion
+     */
     public String getIdentificacion() { return identificacion; }
+
+    /**
+     * Establece identificacion.
+     *
+     * @param identificacion identificacion
+     */
     public void setIdentificacion(String identificacion) { this.identificacion = identificacion; }
 
+    /**
+     * Devuelve descripcion.
+     * @return descripcion
+     */
     public String getDescripcion() { return descripcion; }
+
+    /**
+     * Establece descripcion.
+     *
+     * @param descripcion descripcion
+     */
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
+    /**
+     * Devuelve incluye fase.
+     * @return incluye fase
+     */
     public Fase getIncluyeFase() { return incluyeFase; }
+
+    /**
+     * Establece incluye fase.
+     *
+     * @param incluyeFase incluyeFase
+     */
     public void setIncluyeFase(Fase incluyeFase) { this.incluyeFase = incluyeFase; }
 
+    /**
+     * Devuelve selecciones.
+     * @return selecciones
+     */
     public ArrayList<Seleccion> getSelecciones() { return selecciones; }
-    public void setSelecciones(ArrayList<Seleccion> selecciones) { this.selecciones = selecciones; }
 
+    /**
+     * Establece selecciones.
+     *
+     * @param selecciones selecciones
+     */
+     void setSelecciones(ArrayList<Seleccion> selecciones) { this.selecciones = selecciones; }
+
+    /**
+     * Asocia una seleccion al grupo y establece la relacion inversa.
+     *
+     * @param seleccion seleccion
+     */
     public void asociarSeleccion(Seleccion seleccion) {
         this.selecciones.add(seleccion);
         seleccion.setGrupo(this);
@@ -41,28 +100,30 @@ public class Grupo {
 
     // Métodos
 
+    /**
+     * Calcula los puntos obtenidos por una seleccion en este grupo
+     * (3 por victoria, 1 por empate, 0 por derrota).
+     *
+     * @param s s
+     * @return resultado de la operacion
+     */
     public int obtenerPuntos(Seleccion s) {
         int puntos = 0;
 
-        // Confiamos en que la lista está inicializada, recorremos directo
         for (Participacion parti : s.getParticipaciones()) {
             Partido partido = parti.getPartido();
 
-            // 1. Regla 0..1 de la cátedra: Validamos que haya partido y fase asignada
-            // Comparamos los objetos Fase directamente
             if (partido != null && partido.getCorrespondeFase() != null &&
                     partido.getCorrespondeFase().equals(this.incluyeFase)) {
 
                 Participacion rival = null;
 
-                // 2. Identificamos al rival comparando referencias de memoria (==)
                 if (partido.getEquipoLocal().equals(parti)) {
                     rival = partido.getEquipoVisitante();
                 } else if (partido.getEquipoVisitante() == parti) {
                     rival = partido.getEquipoLocal();
                 }
 
-                // 3. Regla 0..1: Validamos que el rival ya esté definido en el partido
                 if (rival != null) {
                     int goles = parti.cantidadGoles();
                     int golesRival = rival.cantidadGoles();

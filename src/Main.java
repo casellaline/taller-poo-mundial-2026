@@ -1,19 +1,19 @@
+/**
+ * Clase principal que arranca el sistema: crea el repositorio y las
+ * gestoras, carga los datos de prueba y lanza el menu interactivo.
+ */
 public class Main {
+    /**
+     * Punto de entrada del programa.
+     *
+     * @param args args
+     */
     public static void main(String[] args) {
 
         System.out.println("Iniciando Sistema de Gestión del Mundial 2026...");
         System.out.println("Cargando módulos de memoria...\n");
 
-        // ==========================================================
-        // PASO 1: CREAR LA ÚNICA FUENTE DE VERDAD (El Repositorio)
-        // ==========================================================
-        // Aquí adentro nacen todas las List<> por única vez.
         RepoMundial repositorio= new RepoMundial();
-
-        // ==========================================================
-        // PASO 2: INYECTAR DEPENDENCIAS (Crear las Gestoras)
-        // ==========================================================
-        // Nacen las gestoras y les "enchufamos" las listas del repositorio
 
         GestionDelegaciones delegaciones = new GestionDelegaciones(
                 repositorio.getPaises(),
@@ -29,34 +29,18 @@ public class Main {
                 repositorio.getSedes()
         );
 
-        // ==========================================================
-        // PASO 3: CREAR LOS SERVICIOS AUXILIARES
-        // ==========================================================
-        // RegistroEvento maneja los eventos en vivo
         RegistroEvento eventoNuevo = new RegistroEvento();
 
-        // El Generador de Informes recibe a las gestoras para poder leer sus datos
-        GeneradorInformes informes = new GeneradorInformes(
+       GeneradorInformes informes = new GeneradorInformes(
                 delegaciones,
                 organizacionDeportiva);
 
-        // ==========================================================
-        // PASO 4: CARGA DE DATOS INICIALES (Hardcodeados)
-        // ==========================================================
-        // Cumpliendo la consigna de la profesora: la carga se aísla en un método aparte.
-        InicializadorDatos.cargarDatosDePrueba(delegaciones, infraestructura, organizacionDeportiva);
+       InicializadorDatos.cargarDatosDePrueba(delegaciones, infraestructura, organizacionDeportiva);
 
-        // ==========================================================
-        // PASO 5: ARRANCAR EL MENÚ INTERACTIVO
-        // ==========================================================
-        // Le pasamos al menú todas las herramientas que necesita para trabajar
         MenuMundial menuPrincipal = new MenuMundial(delegaciones, infraestructura,organizacionDeportiva, informes, eventoNuevo);
 
-        // ¡Le damos play al sistema! El programa se quedará "atrapado"
-        // adentro de este método hasta que el usuario elija salir (opción 0).
         menuPrincipal.iniciar();
 
-        // Cuando el usuario elige salir en el menú, el código recién llega acá y termina.
         System.out.println("Ejecución finalizada correctamente.");
     }
 }
