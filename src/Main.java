@@ -35,7 +35,6 @@ public class Main {
                 delegaciones,
                 organizacionDeportiva);
 
-       InicializadorDatos.cargarDatosDePrueba(delegaciones, infraestructura, organizacionDeportiva);
 
         MenuMundial menuPrincipal = new MenuMundial(delegaciones, infraestructura,organizacionDeportiva, informes, eventoNuevo);
 
