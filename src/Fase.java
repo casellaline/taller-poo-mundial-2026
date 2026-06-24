@@ -102,35 +102,4 @@ public class Fase {
         grupo.setIncluyeFase(this);
     }
 
-    /**
-     * Dos fases se consideran equivalentes si tienen el mismo nombre
-     * (la misma constante del enum {@code NombreFase}). Esto permite comparar
-     * correctamente instancias distintas que representan la misma fase del
-     * torneo.
-     *
-     * @param obj objeto a comparar
-     * @return {@code true} si ambas fases tienen el mismo nombre
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || this.getClass() != obj.getClass()) {
-            return false;
-        }
-        Fase otra = (Fase) obj;
-        return this.nombre == otra.nombre;
-    }
-
-    /**
-     * Calcula el hash en base al nombre de la fase, de forma coherente con
-     * {@link #equals(Object)}.
-     *
-     * @return codigo hash de la fase
-     */
-    @Override
-    public int hashCode() {
-        return (this.nombre == null) ? 0 : this.nombre.hashCode();
-    }
 }
