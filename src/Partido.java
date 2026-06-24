@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Representa un partido del torneo, con su informacion logistica
+ * (fecha, horario, estadio, fase), los equipos local y visitante, el equipo
+ * de arbitraje y los eventos registrados.
+ */
+
 public class Partido {
     private int fecha;
     private int horario;
@@ -14,6 +20,10 @@ public class Partido {
     private List<Evento> eventos;
 
     // Constructores
+
+    /**
+     * Crea una instancia vacia de {@code Partido}.
+     */
     public Partido() {
         this.arbitrajes = new ArrayList<Arbitraje>();
         this.eventos = new ArrayList<Evento>();
@@ -49,58 +59,121 @@ public class Partido {
 
     // Getters y Setters
 
+    /**
+     * Devuelve fecha.
+     * @return fecha
+     */
     public int getFecha() {
         return fecha;
     }
 
+    /**
+     * Establece fecha.
+     *
+     * @param fecha fecha
+     */
     public void setFecha(int fecha) {
         this.fecha = fecha;
     }
 
+    /**
+     * Devuelve horario.
+     * @return horario
+     */
     public int getHorario() {
         return horario;
     }
 
+    /**
+     * Establece horario.
+     *
+     * @param horario horario
+     */
     public void setHorario(int horario) {
         this.horario = horario;
     }
 
+    /**
+     * Devuelve duracion.
+     * @return duracion
+     */
     public int getDuracion() {
         return duracion;
     }
 
+    /**
+     * Establece duracion.
+     *
+     * @param duracion duracion
+     */
     public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
 
+    /**
+     * Devuelve tiempo adicional.
+     * @return tiempo adicional
+     */
     public int getTiempoAdicional() {
         return tiempoAdicional;
     }
 
+    /**
+     * Establece tiempo adicional.
+     *
+     * @param tiempoAdicional tiempoAdicional
+     */
     public void setTiempoAdicional(int tiempoAdicional) {
         this.tiempoAdicional = tiempoAdicional;
     }
 
+    /**
+     * Devuelve se desarrolla en.
+     * @return se desarrolla en
+     */
     public Estadio getSeDesarrollaEn() {
         return seDesarrollaEn;
     }
 
+    /**
+     * Establece se desarrolla en.
+     *
+     * @param seDesarrollaEn seDesarrollaEn
+     */
     public void setSeDesarrollaEn(Estadio seDesarrollaEn) {
         this.seDesarrollaEn = seDesarrollaEn;
     }
 
+    /**
+     * Devuelve corresponde fase.
+     * @return corresponde fase
+     */
     public Fase getCorrespondeFase() {
         return correspondeFase;
     }
 
+    /**
+     * Establece corresponde fase.
+     *
+     * @param correspondeFase correspondeFase
+     */
     public void setCorrespondeFase(Fase correspondeFase) {
         this.correspondeFase = correspondeFase;
     }
 
+    /**
+     * Devuelve equipo local.
+     * @return equipo local
+     */
     public Participacion getEquipoLocal() {
         return equipoLocal;
     }
 
+    /**
+     * Establece equipo local.
+     *
+     * @param equipoLocal equipoLocal
+     */
     public void setEquipoLocal(Participacion equipoLocal) {
         this.equipoLocal = equipoLocal;
         if (this.equipoLocal != null) {
@@ -108,10 +181,19 @@ public class Partido {
         }
     }
 
+    /**
+     * Devuelve equipo visitante.
+     * @return equipo visitante
+     */
     public Participacion getEquipoVisitante() {
         return equipoVisitante;
     }
 
+    /**
+     * Establece equipo visitante.
+     *
+     * @param equipoVisitante equipoVisitante
+     */
     public void setEquipoVisitante(Participacion equipoVisitante) {
         this.equipoVisitante = equipoVisitante;
         if (this.equipoVisitante != null) {
@@ -120,10 +202,19 @@ public class Partido {
         }
     }
 
+    /**
+     * Devuelve arbitrajes.
+     * @return arbitrajes
+     */
     public List<Arbitraje> getArbitrajes() {
         return arbitrajes;
     }
 
+    /**
+     * Establece arbitrajes.
+     *
+     * @param arbitrajes arbitrajes
+     */
     public void setArbitrajes(List<Arbitraje> arbitrajes) {
         this.arbitrajes = arbitrajes;
     }
@@ -151,21 +242,35 @@ public class Partido {
         return false;
     }
 
+    /**
+     * Devuelve eventos.
+     * @return eventos
+     */
     public List<Evento> getEventos() {
         return eventos;
     }
 
+    /**
+     * Establece eventos.
+     *
+     * @param eventos eventos
+     */
     public void setEventos(List<Evento> eventos) {
         this.eventos = eventos;
     }
 
+    /**
+     * Agrega un evento al partido validando que el jugador involucrado
+     * pertenezca a alguno de los dos equipos.
+     *
+     * @param evento evento
+     * @throws JugadorNoPerteneceAlPartidoException si la validacion correspondiente falla
+     */
     public void agregarEvento(Evento evento) throws JugadorNoPerteneceAlPartidoException {
 
-        // 1. Obtenemos el jugador que está dentro del evento que intentan registrar
+
         Jugador jugadorImplicado = evento.getJugador();
 
-        // 2. Verificamos si el jugador pertenece a la selección del equipo local o visitante.
-        // (Nota: Ajusta los "getSeleccion()" y "getJugadores()" según los nombres exactos de tus getters)
         boolean juegaLocal = false;
         if (this.equipoLocal != null && this.equipoLocal.getSeleccion() != null) {
             juegaLocal = this.equipoLocal.getSeleccion().getJugadores().contains(jugadorImplicado);
@@ -176,12 +281,10 @@ public class Partido {
             juegaVisitante = this.equipoVisitante.getSeleccion().getJugadores().contains(jugadorImplicado);
         }
 
-        // 3. Si no juega ni de local ni de visitante, ¡Lanzamos la excepción!
         if (!juegaLocal && !juegaVisitante) {
             throw new JugadorNoPerteneceAlPartidoException("El jugador ingresado no forma parte de ninguno de los dos equipos de este partido.");
         }
 
-        // 4. Si pasó la validación de arriba, entonces sí lo agregamos a la lista
         this.eventos.add(evento);
     }
 }
