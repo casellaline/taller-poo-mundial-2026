@@ -114,7 +114,7 @@ public class Grupo {
             Partido partido = part.getPartido();
 
             if (partido != null && partido.getCorrespondeFase() != null &&
-                    partido.getCorrespondeFase().equals(this.incluyeFase)) {
+                    partido.getCorrespondeFase().getNombre() == this.incluyeFase.getNombre()) {
 
                 Participacion rival = null;
 

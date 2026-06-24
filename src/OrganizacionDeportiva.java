@@ -181,11 +181,10 @@ public class OrganizacionDeportiva {
      * @return el arbitraje creado y asignado
      * @throws PartidoSinArbitroPrincipalException si se asigna un rol no
      *         principal a un partido que aún no tiene árbitro principal
-     * @throws PartidoConArbitroPrincipalException si se intenta asignar un
-     *         segundo árbitro principal
+     *
      */
     public Arbitraje asignarArbitraje(CategoriaArbitro categoria, Arbitro arbitro, Partido partido)
-            throws PartidoSinArbitroPrincipalException, PartidoConArbitroPrincipalException {
+            throws PartidoSinArbitroPrincipalException {
         if (categoria != CategoriaArbitro.PRINCIPAL) {
             this.validarArbitroPrincipal(partido);
         }
