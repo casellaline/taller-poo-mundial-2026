@@ -84,6 +84,10 @@ public class MenuMundial {
            System.out.println(" 7. Registrar seleccion");
            System.out.println(" 8. Registrar arbitro");
            System.out.println(" 9. Planificar partido");
+           System.out.println(" 10. Asignar director tecnico a una seleccion");
+           System.out.println(" 11. Asignar cuerpo tecnico a una seleccion");
+           System.out.println(" 12. Configurar grupo");
+           System.out.println(" 13. Finalizar partido (habilita puntos)");
            System.out.println(" 0. Volver al menu principal");
            System.out.println("------------------------------------------");
            System.out.print("Ingrese una opcion: ");
@@ -92,9 +96,8 @@ public class MenuMundial {
                int opcion = Integer.parseInt(scanner.nextLine());
                switch (opcion) {
                    case 1:
-                       System.out.println(">> Cargando datos iniciales...");
+                       System.out.println(">> Datos iniciales cargados con éxito.");
                        InicializadorDatos.cargarDatosDePrueba(delegaciones, infraestructura, orgDeportiva);
-                       System.out.println("¡Datos cargados con éxito!");
                             break;
                    case 2:
                        System.out.println(">> Inscribir Jugador");
@@ -117,7 +120,7 @@ public class MenuMundial {
                            System.out.print("Posición (ARQUERO, DEFENSOR, MEDIOCAMPISTA, DELANTERO): ");
                            Posicion posicion = Posicion.valueOf(scanner.nextLine().toUpperCase());
 
-                           System.out.print("Nombre de la Selección destino (Ej. Argentina): ");
+                           System.out.print("Nombre de la Selección destino: ");
                            String nombreSeleccion = scanner.nextLine();
 
                            Seleccion seleccionDestino = delegaciones.buscarSeleccionPorNombre(nombreSeleccion);
@@ -165,12 +168,7 @@ public class MenuMundial {
                                break; // Salimos de este case
                            }
 
-                           if (categoria != CategoriaArbitro.PRINCIPAL) {
-                               orgDeportiva.validarArbitroPrincipal(partidoDestino);
-                           }
-
-                           Arbitraje nuevoArbitraje = new Arbitraje(categoria, arbitroDestino, partidoDestino);
-                           partidoDestino.agregarArbitraje(nuevoArbitraje);
+                           orgDeportiva.asignarArbitraje(categoria, arbitroDestino, partidoDestino);
 
                            System.out.println("¡Arbitraje (" + categoria + ") asignado al partido!");
 
@@ -213,13 +211,11 @@ public class MenuMundial {
                            System.out.print("Minuto del suceso (Ej. 45): ");
                            int minuto = Integer.parseInt(scanner.nextLine());
 
-                           Evento nuevoEvento = new Evento(tipo, minuto, jugadorImplicado);
-
-                           // El método agregarEvento() en Partido es el que debe tener el 'throw' si el jugador no juega ese partido.
-                           partidoDestino.agregarEvento(nuevoEvento);
+                           // La gestora crea el Evento y valida que el jugador
+                           // pertenezca al partido
+                           orgDeportiva.registrarEvento(partidoDestino, tipo, minuto, jugadorImplicado);
 
                            System.out.println("El Evento de " + tipo + " en el minuto " + minuto + " fue registrado.");
-
                        } catch (NumberFormatException e) {
                            System.out.println("ERROR: Debes ingresar números enteros para la fecha y el minuto.");
                        } catch (IllegalArgumentException e) {
@@ -361,8 +357,7 @@ public class MenuMundial {
                            System.out.print("Años de experiencia: ");
                            int experiencia = Integer.parseInt(scanner.nextLine());
 
-                           Arbitro nuevoArbitro = new Arbitro(nombreArbitro, anioNac, experiencia, paisArbitro);
-                           delegaciones.registrarArbitro(nuevoArbitro);
+                           Arbitro nuevoArbitro = delegaciones.crearArbitro(nombreArbitro, anioNac, experiencia, paisArbitro);
 
                            System.out.println("Se registro al arbitro '" + nombreArbitro + "'.");
                        } catch (NumberFormatException e) {
@@ -424,26 +419,116 @@ public class MenuMundial {
                                break;
                            }
 
-                           // 1. Crear las participaciones
-                           Participacion partLocal = new Participacion(true, selLocal);
-                           Participacion partVisita = new Participacion(false, selVisita);
+                           // 1. Crear las participaciones (la gestora las crea y las vincula con su seleccion)
+                           Participacion partLocal = orgDeportiva.crearParticipacion(true, selLocal);
+                           Participacion partVisita = orgDeportiva.crearParticipacion(false, selVisita);
 
-                           // 2. Asociar participaciones a las selecciones (vital para puntos/goles)
-                           selLocal.agregarParticipacion(partLocal);
-                           selVisita.agregarParticipacion(partVisita);
-
-                           // 3. Planificar el partido en la gestora
+                           // 2. Planificar el partido en la gestora
                            Partido nuevoPartido = orgDeportiva.planificarPartido(fecha, horario, duracion, tiempoAdicional, estadioDestino, fasePartido, partLocal, partVisita);
 
-                           // 4. Vincular el partido al estadio (vital para estadísticas de sede)
+                           // 3. Vincular el partido al estadio (vital para estadísticas de sede)
                            estadioDestino.agregarPartido(nuevoPartido);
 
                            System.out.println("¡Partido planificado con éxito entre " + selLocal.getNombreFederacion() + " y " + selVisita.getNombreFederacion() + "!");
-
                        } catch (NumberFormatException e) {
                            System.out.println("ERROR: Los campos de fecha, horario, duración y tiempo adicional deben ser numéricos.");
                        } catch (IllegalArgumentException e) {
                            System.out.println("ERROR: La fase ingresada no existe (Asegurate de escribirla igual que en el Enum NombreFase).");
+                       } catch (Exception e) {
+                           System.out.println("ERROR INESPERADO: " + e.getMessage());
+                       }
+                       break;
+
+                   case 10:
+                       System.out.println(">> Asignar Director Tecnico");
+                       try {
+                           System.out.print("Nombre de la Seleccion (Ej. AFA): ");
+                           Seleccion selDt = delegaciones.buscarSeleccionPorNombre(scanner.nextLine().trim());
+                           if (selDt == null) {
+                               System.out.println("ERROR: No se encontro la seleccion indicada.");
+                               break;
+                           }
+
+                           System.out.print("Nombre del director tecnico: ");
+                           String nombreDt = scanner.nextLine();
+
+                           System.out.print("Anio de nacimiento (Ej. 1978): ");
+                           int anioNacDt = Integer.parseInt(scanner.nextLine());
+
+                           System.out.print("Anio de nombramiento (Ej. 2018): ");
+                           int anioNombramiento = Integer.parseInt(scanner.nextLine());
+
+                           delegaciones.asignarDirectorTecnico(nombreDt, anioNacDt, anioNombramiento, selDt);
+                           System.out.println("Se asigno el director tecnico '" + nombreDt +
+                                   "' a " + selDt.getNombreFederacion() + ".");
+                       } catch (NumberFormatException e) {
+                           System.out.println("ERROR: Los anios deben ser numeros enteros.");
+                       } catch (Exception e) {
+                           System.out.println("ERROR INESPERADO: " + e.getMessage());
+                       }
+                       break;
+
+                   case 11:
+                       System.out.println(">> Asignar Cuerpo Tecnico");
+                       try {
+                           System.out.print("Nombre de la Seleccion (Ej. AFA): ");
+                           Seleccion selCt = delegaciones.buscarSeleccionPorNombre(scanner.nextLine().trim());
+                           if (selCt == null) {
+                               System.out.println("ERROR: No se encontro la seleccion indicada.");
+                               break;
+                           }
+
+                           System.out.print("Nombre del integrante: ");
+                           String nombreCt = scanner.nextLine();
+
+                           System.out.print("Anio de nacimiento (Ej. 1980): ");
+                           int anioNacCt = Integer.parseInt(scanner.nextLine());
+
+                           System.out.print("Rol (MEDICO, PREPARADOR_FISICO, KINESIOLOGO, NUTRICIONISTA, PSICOLOGO, etc.): ");
+                           Rol rol = Rol.valueOf(scanner.nextLine().trim().toUpperCase());
+
+                           delegaciones.asignarCuerpoTecnico(nombreCt, anioNacCt, rol, selCt);
+                           System.out.println("Se asigno '" + nombreCt + "' (" + rol +
+                                   ") al cuerpo tecnico de " + selCt.getNombreFederacion() + ".");
+                       } catch (NumberFormatException e) {
+                           System.out.println("ERROR: El anio de nacimiento debe ser un numero entero.");
+                       } catch (IllegalArgumentException e) {
+                           System.out.println("ERROR: El rol ingresado no existe.");
+                       } catch (Exception e) {
+                           System.out.println("ERROR INESPERADO: " + e.getMessage());
+                       }
+                       break;
+
+                   case 12:
+                       System.out.println(">> Configurar Grupo");
+                       try {
+                           System.out.print("Identificacion del grupo (Ej. A): ");
+                           String idGrupo = scanner.nextLine().trim();
+
+                           System.out.print("Descripcion (Ej. Grupo A - Primera Fase): ");
+                           String descGrupo = scanner.nextLine();
+
+                           // El grupo pertenece a la fase de grupos
+                           Fase faseGrupo = orgDeportiva.crearFase(NombreFase.GRUPOS);
+                           Grupo nuevoGrupo = orgDeportiva.configurarGrupo(idGrupo, descGrupo, faseGrupo);
+
+                           // Asociar selecciones al grupo (opcional, hasta que el usuario escriba 'fin')
+                           System.out.println("Ingrese los nombres de las selecciones del grupo (escriba 'fin' para terminar):");
+                           while (true) {
+                               System.out.print("  Seleccion (o 'fin'): ");
+                               String nombreSel = scanner.nextLine().trim();
+                               if (nombreSel.equalsIgnoreCase("fin")) {
+                                   break;
+                               }
+                               Seleccion sel = delegaciones.buscarSeleccionPorNombre(nombreSel);
+                               if (sel == null) {
+                                   System.out.println("  ERROR: No se encontro esa seleccion, intente de nuevo.");
+                               } else {
+                                   nuevoGrupo.asociarSeleccion(sel);
+                                   System.out.println("  Agregada: " + sel.getNombreFederacion());
+                               }
+                           }
+                           System.out.println("Se configuro el grupo '" + idGrupo + "'.");
                        } catch (Exception e) {
                            System.out.println("ERROR INESPERADO: " + e.getMessage());
                        }

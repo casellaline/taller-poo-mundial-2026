@@ -50,23 +50,53 @@ public class Partido {
 
     // Getters y Setters
 
-    public int getFecha() { return fecha; }
-    public void setFecha(int fecha) { this.fecha = fecha; }
+    public int getFecha() {
+        return fecha;
+    }
 
-    public int getHorario() { return horario; }
-    public void setHorario(int horario) { this.horario = horario; }
+    public void setFecha(int fecha) {
+        this.fecha = fecha;
+    }
 
-    public int getDuracion() { return duracion; }
-    public void setDuracion(int duracion) { this.duracion = duracion; }
+    public int getHorario() {
+        return horario;
+    }
 
-    public int getTiempoAdicional() { return tiempoAdicional; }
-    public void setTiempoAdicional(int tiempoAdicional) { this.tiempoAdicional = tiempoAdicional; }
+    public void setHorario(int horario) {
+        this.horario = horario;
+    }
 
-    public Estadio getSeDesarrollaEn() { return seDesarrollaEn; }
-    public void setSeDesarrollaEn(Estadio seDesarrollaEn) { this.seDesarrollaEn = seDesarrollaEn; }
+    public int getDuracion() {
+        return duracion;
+    }
 
-    public Fase getCorrespondeFase() { return correspondeFase; }
-    public void setCorrespondeFase(Fase correspondeFase) { this.correspondeFase = correspondeFase; }
+    public void setDuracion(int duracion) {
+        this.duracion = duracion;
+    }
+
+    public int getTiempoAdicional() {
+        return tiempoAdicional;
+    }
+
+    public void setTiempoAdicional(int tiempoAdicional) {
+        this.tiempoAdicional = tiempoAdicional;
+    }
+
+    public Estadio getSeDesarrollaEn() {
+        return seDesarrollaEn;
+    }
+
+    public void setSeDesarrollaEn(Estadio seDesarrollaEn) {
+        this.seDesarrollaEn = seDesarrollaEn;
+    }
+
+    public Fase getCorrespondeFase() {
+        return correspondeFase;
+    }
+
+    public void setCorrespondeFase(Fase correspondeFase) {
+        this.correspondeFase = correspondeFase;
+    }
 
     public Participacion getEquipoLocal() {
         return equipoLocal;
@@ -102,10 +132,11 @@ public class Partido {
     /**
      * Agrega un objeto Arbitraje (la asignación de un rol a un árbitro)
      * a la lista de arbitrajes de este partido.
+     *
      * @param arbitraje El objeto Arbitraje ya instanciado.
      */
     public void agregarArbitraje(Arbitraje arbitraje) {
-        if(arbitraje !=null){
+        if (arbitraje != null) {
             this.arbitrajes.add(arbitraje);
             arbitraje.setPartido(this);
         }
@@ -142,12 +173,6 @@ public class Partido {
         }
 
         // 4. Si pasó la validación de arriba, entonces sí lo agregamos a la lista
-        this.eventos.add(evento);}
-
-        /* * Opcional: Si en algún momento decides agregar 'private Partido partido;'
-         * dentro de la clase Evento (bidireccionalidad), el enlace inverso lo harías aquí así:
-         * evento.setPartido(this);
-         */
-
-
+        this.eventos.add(evento);
+    }
 }
