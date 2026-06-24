@@ -117,7 +117,7 @@ public class MenuMundial {
                            System.out.print("Posición (ARQUERO, DEFENSOR, MEDIOCAMPISTA, DELANTERO): ");
                            Posicion posicion = Posicion.valueOf(scanner.nextLine().toUpperCase());
 
-                           System.out.print("Nombre de la Selección destino (Ej. AFA): ");
+                           System.out.print("Nombre de la Selección destino (Ej. Argentina): ");
                            String nombreSeleccion = scanner.nextLine();
 
                            Seleccion seleccionDestino = delegaciones.buscarSeleccionPorNombre(nombreSeleccion);
@@ -535,7 +535,7 @@ public class MenuMundial {
                         break;
                     case 3:
                         System.out.println("\n>> Resultados por selección");
-                        System.out.print("Ingrese el nombre de la selección (Ej. 'AFA'): ");
+                        System.out.print("Ingrese el nombre de la selección (Ej. 'Argentina'): ");
                         String nombreSeleccion = scanner.nextLine().trim();
 
                         Seleccion seleccionEncontrada = null;
@@ -572,7 +572,7 @@ public class MenuMundial {
                         break;
                     case 5:
                         System.out.println("\n>> Informe disciplinario por seleccion");
-                        System.out.print("Ingrese el nombre de la seleccion (Ej. 'AFA): ");
+                        System.out.print("Ingrese el nombre de la seleccion (Ej. 'Argentina): ");
                         String nombreSelDisc = scanner.nextLine().trim();
 
                         Seleccion selDisciplina = null;
