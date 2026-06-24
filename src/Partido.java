@@ -19,12 +19,11 @@ public class Partido {
         this.eventos = new ArrayList<Evento>();
     }
 
-    // Constructor
     public Partido(int fecha, int horario, int duracion, int tiempoAdicional,
                    Estadio seDesarrollaEn, Fase correspondeFase,
                    Participacion equipoLocal, Participacion equipoVisitante) {
 
-        // 1. Asignación directa de tipos básicos
+
         this.fecha = fecha;
         this.horario = horario;
         this.duracion = duracion;
@@ -32,10 +31,10 @@ public class Partido {
         this.seDesarrollaEn = seDesarrollaEn;
         this.correspondeFase = correspondeFase;
 
-        // 2. Asignación directa de objetos + Validación de nulos (sin usar el setter)
+
         this.equipoLocal = equipoLocal;
         if (this.equipoLocal != null) {
-            this.equipoLocal.asociarPartido(this); // Mantenemos la bidireccionalidad
+            this.equipoLocal.asociarPartido(this);
         }
 
         this.equipoVisitante = equipoVisitante;
@@ -43,7 +42,7 @@ public class Partido {
             this.equipoVisitante.asociarPartido(this);
         }
 
-        // 3. Declarado como List arriba, inicializado como ArrayList acá abajo
+
         this.eventos = new ArrayList<Evento>();
         this.arbitrajes = new ArrayList<Arbitraje>();
     }
@@ -130,16 +129,26 @@ public class Partido {
     }
 
     /**
-     * Agrega un objeto Arbitraje (la asignación de un rol a un árbitro)
-     * a la lista de arbitrajes de este partido.
+     * Agrega un objeto Arbitraje a la lista de arbitrajes de este partido.
      *
      * @param arbitraje El objeto Arbitraje ya instanciado.
      */
-    public void agregarArbitraje(Arbitraje arbitraje) {
+    public boolean agregarArbitraje(Arbitraje arbitraje) {
         if (arbitraje != null) {
+
+            if (arbitraje.getRol() == CategoriaArbitro.PRINCIPAL) {
+                for (Arbitraje existente : this.arbitrajes) {
+                    if (existente != null && existente.getRol() == CategoriaArbitro.PRINCIPAL) {
+                        return false;
+                    }
+                }
+            }
+
             this.arbitrajes.add(arbitraje);
             arbitraje.setPartido(this);
+            return true;
         }
+        return false;
     }
 
     public List<Evento> getEventos() {

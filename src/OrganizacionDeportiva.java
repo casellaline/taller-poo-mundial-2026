@@ -189,9 +189,14 @@ public class OrganizacionDeportiva {
             this.validarArbitroPrincipal(partido);
         }
         Arbitraje nuevoArbitraje = new Arbitraje(categoria, arbitro, partido);
-        partido.agregarArbitraje(nuevoArbitraje);
-        return nuevoArbitraje;
+        boolean esValido = partido.agregarArbitraje(nuevoArbitraje);
+        if (esValido) {
+            return nuevoArbitraje;
+        } else {
+            return null;
+        }
     }
+
 
     /**
      * Registra un evento en un partido creando el objeto {@code Evento}
