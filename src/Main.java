@@ -10,8 +10,9 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        System.out.println("Iniciando Sistema de Gestión del Mundial 2026...");
-        System.out.println("Cargando módulos de memoria...\n");
+        System.out.println("===================================");
+        System.out.println("SISTEMA DE GESTION DEL MUNDIAL 2026");
+        System.out.println("===================================");
 
         RepoMundial repositorio= new RepoMundial();
 
@@ -40,6 +41,8 @@ public class Main {
 
         menuPrincipal.iniciar();
 
-        System.out.println("Ejecución finalizada correctamente.");
+        System.out.println("=====================");
+        System.out.println("SISTEMA FINALIZADO.");
+        System.out.println("=====================");
     }
 }
