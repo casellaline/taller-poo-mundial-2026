@@ -560,7 +560,7 @@ public class MenuMundial {
             System.out.println(" 2. Tabla de posiciones por grupo");
             System.out.println(" 3. Resultados por seleccion");
             System.out.println(" 4. Ranking de goleadores");
-            System.out.println(" 5. Informe disciplinario por seleccion");
+            System.out.println(" 5. Informe disciplinario por seleccion o jugador");
             System.out.println(" 6. Ficha tecnica de partido");
             System.out.println(" 7. Estadisticas de sedes");
             System.out.println(" 0. Volver al menu principal");
@@ -656,23 +656,44 @@ public class MenuMundial {
                         }
                         break;
                     case 5:
-                        System.out.println("\n>> Informe disciplinario por seleccion");
-                        System.out.print("Ingrese el nombre de la seleccion (Ej. 'Argentina): ");
-                        String nombreSelDisc = scanner.nextLine().trim();
+                        System.out.println("\n>> Informe disciplinario");
+                        System.out.println("  1. Por seleccion");
+                        System.out.println("  2. Por jugador");
+                        System.out.print("Elija una opcion: ");
+                        String subOpcionDisc = scanner.nextLine().trim();
 
-                        Seleccion selDisciplina = null;
-                        for (Seleccion s : delegaciones.getSeleccionesInscriptas()) {
-                            if (s.getPais().getNombre().equalsIgnoreCase(nombreSelDisc)) {
-                                selDisciplina = s;
-                                break;
+                        if (subOpcionDisc.equals("1")) {
+                            System.out.print("Ingrese el nombre de la seleccion (Ej. 'Argentina'): ");
+                            String nombreSelDisc = scanner.nextLine().trim();
+
+                            Seleccion selDisciplina = null;
+                            for (Seleccion s : delegaciones.getSeleccionesInscriptas()) {
+                                if (s.getPais().getNombre().equalsIgnoreCase(nombreSelDisc)) {
+                                    selDisciplina = s;
+                                    break;
+                                }
                             }
-                        }
 
-                        if (selDisciplina == null) {
-                            System.out.println("ERROR: No se encontro ninguna seleccion con el nombre '" +
-                                    nombreSelDisc + "'.");
+                            if (selDisciplina == null) {
+                                System.out.println("ERROR: No se encontro ninguna seleccion con el nombre '" +
+                                        nombreSelDisc + "'.");
+                            } else {
+                                System.out.println("\n" + informes.informeDisciplinarioSeleccion(selDisciplina));
+                            }
+                        } else if (subOpcionDisc.equals("2")) {
+                            System.out.print("Ingrese el nombre del jugador (Ej. 'Lionel Messi'): ");
+                            String nombreJugDisc = scanner.nextLine().trim();
+
+                            Jugador jugadorDisc = delegaciones.buscarJugadorPorNombre(nombreJugDisc);
+
+                            if (jugadorDisc == null) {
+                                System.out.println("ERROR: No se encontro ningun jugador con el nombre '" +
+                                        nombreJugDisc + "'.");
+                            } else {
+                                System.out.println("\n" + informes.informeDisciplinarioJugador(jugadorDisc));
+                            }
                         } else {
-                            System.out.println("\n" + informes.informeDisciplinarioSeleccion(selDisciplina));
+                            System.out.println("ERROR: Opcion invalida.");
                         }
                         break;
                     case 6:
