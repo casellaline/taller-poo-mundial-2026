@@ -497,7 +497,7 @@ public class MenuMundial {
                         } else {
 
                             for(Seleccion s : listaSelecciones){
-                                System.out.println("- " + s.getNombreFederacion());
+                                System.out.println("- " + s.getPais().getNombre());
                             }
                         }
                         break;
@@ -540,7 +540,7 @@ public class MenuMundial {
 
                         Seleccion seleccionEncontrada = null;
                         for (Seleccion s : delegaciones.getSeleccionesInscriptas()) {
-                            if (s.getNombreFederacion().equalsIgnoreCase(nombreSeleccion)) {
+                            if (s.getPais().getNombre().equalsIgnoreCase(nombreSeleccion)) {
                                 seleccionEncontrada = s;
                                 break;
                             }
@@ -577,7 +577,7 @@ public class MenuMundial {
 
                         Seleccion selDisciplina = null;
                         for (Seleccion s : delegaciones.getSeleccionesInscriptas()) {
-                            if (s.getNombreFederacion().equalsIgnoreCase(nombreSelDisc)) {
+                            if (s.getPais().getNombre().equalsIgnoreCase(nombreSelDisc)) {
                                 selDisciplina = s;
                                 break;
                             }

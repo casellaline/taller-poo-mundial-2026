@@ -67,7 +67,7 @@ public class GestionDelegaciones {
 
     public Seleccion buscarSeleccionPorNombre(String nombreBuscado) {
         for (Seleccion seleccion : this.seleccionesInscriptas) {
-            if (seleccion.getNombreFederacion().equalsIgnoreCase(nombreBuscado)) {
+            if (seleccion.getPais().getNombre().equalsIgnoreCase(nombreBuscado)) {
                 return seleccion;
             }
         }

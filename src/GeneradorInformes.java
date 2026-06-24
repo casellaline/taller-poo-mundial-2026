@@ -110,7 +110,7 @@ public class GeneradorInformes {
                     : "Sin fase";
 
             resultados.add("[" + fase + "] vs "
-                    + rival.getSeleccion().getNombreFederacion()
+                    + rival.getSeleccion().getPais().getNombre()
                     + " " + goles + "-" + golesRival
                     + " (" + resultado + ")");
         }
@@ -190,7 +190,7 @@ public class GeneradorInformes {
                 rojas += visitante.cantidadTarjRojas();
             }
         }
-        return "INFORME DISCIPLINARIO:  " + seleccion.getNombreFederacion()+ "\n"
+        return "INFORME DISCIPLINARIO:  " + seleccion.getPais().getNombre()+ "\n"
                 + " Total de Tarjetas Amarillas: " + amarillas +"\n" +" | Total de Tarjetas Rojas: " + rojas+"\n";
     }
 
@@ -212,7 +212,7 @@ public class GeneradorInformes {
         // Procesamos al Local
         Participacion local = partido.getEquipoLocal();
         if (local != null && local.getSeleccion() != null) {
-            ficha = ficha + local.getSeleccion().getNombreFederacion() + " (Local) - Goles: "
+            ficha = ficha + local.getSeleccion().getPais().getNombre() + " (Local) - Goles: "
                     + local.cantidadGoles() + "\nAlineacion:\n";
             for (Jugador jugador : local.getSeleccion().getJugadores()) {
                 ficha = ficha + "  - " + jugador.getNombre() + "\n";
@@ -222,7 +222,7 @@ public class GeneradorInformes {
         // Procesamos al Visitante
         Participacion visitante = partido.getEquipoVisitante();
         if (visitante != null && visitante.getSeleccion() != null) {
-            ficha = ficha + visitante.getSeleccion().getNombreFederacion() + " (Visitante) - Goles: "
+            ficha = ficha + visitante.getSeleccion().getPais().getNombre() + " (Visitante) - Goles: "
                     + visitante.cantidadGoles() + "\nAlineacion:\n";
             for (Jugador jugador : visitante.getSeleccion().getJugadores()) {
                 ficha = ficha + "  - " + jugador.getNombre() + "\n";
