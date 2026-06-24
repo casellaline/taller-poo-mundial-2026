@@ -87,7 +87,6 @@ public class MenuMundial {
            System.out.println(" 10. Asignar director tecnico a una seleccion");
            System.out.println(" 11. Asignar cuerpo tecnico a una seleccion");
            System.out.println(" 12. Configurar grupo");
-           System.out.println(" 13. Finalizar partido (habilita puntos)");
            System.out.println(" 0. Volver al menu principal");
            System.out.println("------------------------------------------");
            System.out.print("Ingrese una opcion: ");
