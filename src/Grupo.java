@@ -34,7 +34,7 @@ public class Grupo {
         this.selecciones = new ArrayList<Seleccion>();
     }
 
-    // Getters y Setters puros
+    // Getters y Setters
 
     /**
      * Devuelve identificacion.

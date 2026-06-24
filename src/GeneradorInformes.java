@@ -195,6 +195,42 @@ public class GeneradorInformes {
     }
 
     /**
+     * Genera el informe disciplinario de un jugador, contando las tarjetas
+     * (amarillas, rojas y dobles amarillas) que registró a lo largo de todos
+     * los partidos del torneo.
+     *
+     * @param jugador jugador a consultar
+     * @return texto con el detalle de tarjetas del jugador
+     */
+    public String informeDisciplinarioJugador(Jugador jugador) {
+        if (jugador == null) {
+            return "Jugador nulo.";
+        }
+        int amarillas = 0;
+        int rojas = 0;
+        int doblesAmarillas = 0;
+
+        for (Partido partido : this.organizacionDeportiva.getTodosLosPartidos()) {
+            for (Evento evento : partido.getEventos()) {
+                if (evento.getJugador() != null && evento.getJugador().equals(jugador)) {
+                    if (evento.getTipo() == TipoEvento.TARJETA_AMARILLA) {
+                        amarillas++;
+                    } else if (evento.getTipo() == TipoEvento.TARJETA_ROJA) {
+                        rojas++;
+                    } else if (evento.getTipo() == TipoEvento.DOBLE_AMARILLA) {
+                        doblesAmarillas++;
+                    }
+                }
+            }
+        }
+
+        return "INFORME DISCIPLINARIO DEL JUGADOR: " + jugador.getNombre() + "\n"
+                + " Tarjetas Amarillas: " + amarillas + "\n"
+                + " Dobles Amarillas: " + doblesAmarillas + "\n"
+                + " Tarjetas Rojas: " + rojas + "\n";
+    }
+
+    /**
      * Genera la ficha técnica completa de un partido: alineaciones, resultado
      * por selección y detalle de eventos.
      *
