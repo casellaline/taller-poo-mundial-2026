@@ -428,7 +428,7 @@ public class MenuMundial {
                            // 3. Vincular el partido al estadio (vital para estadísticas de sede)
                            estadioDestino.agregarPartido(nuevoPartido);
 
-                           System.out.println("¡Partido planificado con éxito entre " + selLocal.getNombreFederacion() + " y " + selVisita.getNombreFederacion() + "!");
+                           System.out.println("¡Partido planificado con éxito entre " + selLocal.getPais().getNombre() + " y " + selVisita.getPais().getNombre() + "!");
                        } catch (NumberFormatException e) {
                            System.out.println("ERROR: Los campos de fecha, horario, duración y tiempo adicional deben ser numéricos.");
                        } catch (IllegalArgumentException e) {
@@ -524,7 +524,7 @@ public class MenuMundial {
                                    System.out.println("  ERROR: No se encontro esa seleccion, intente de nuevo.");
                                } else {
                                    nuevoGrupo.asociarSeleccion(sel);
-                                   System.out.println("  Agregada: " + sel.getNombreFederacion());
+                                   System.out.println("  Agregada: "  + sel.getPais().getNombre());
                                }
                            }
                            System.out.println("Se configuro el grupo '" + idGrupo + "'.");
@@ -611,7 +611,7 @@ public class MenuMundial {
                             } else {
                                 int posicion = 1;
                                 for (RegistroPosicion rp : tabla) {
-                                    System.out.println(posicion + "° | " + rp.getSeleccion().getNombreFederacion() + " | Puntos: " + rp.getPuntos());
+                                    System.out.println(posicion + "° | " + rp.getSeleccion().getPais().getNombre() + " | Puntos: " + rp.getPuntos());
                                     posicion++;
                                 }
                             }
@@ -634,8 +634,7 @@ public class MenuMundial {
                             System.out.println("ERROR: No se encontró ninguna selección con el nombre '" +
                                     nombreSeleccion + "'.");
                         } else {
-                            System.out.println("\n--- RESULTADOS DE " +
-                                    seleccionEncontrada.getNombreFederacion().toUpperCase() + " ---");
+                            System.out.println("\n--- RESULTADOS DE " + seleccionEncontrada.getPais().getNombre().toUpperCase() + " ---");
 
                             List<String> listaResultados = informes.resultadosPorSeleccion(seleccionEncontrada);
 
