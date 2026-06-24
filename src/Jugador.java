@@ -134,7 +134,6 @@ public class Jugador extends Persona {
      */
     public void agregarEvento(Evento evento) {
         this.eventos.add(evento);
-        // Si el evento tiene una relación bidireccional, esto es fundamental
         evento.setJugador(this);
     }
 }

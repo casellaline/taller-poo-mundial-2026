@@ -110,22 +110,22 @@ public class Grupo {
     public int obtenerPuntos(Seleccion s) {
         int puntos = 0;
 
-        for (Participacion parti : s.getParticipaciones()) {
-            Partido partido = parti.getPartido();
+        for (Participacion part : s.getParticipaciones()) {
+            Partido partido = part.getPartido();
 
             if (partido != null && partido.getCorrespondeFase() != null &&
                     partido.getCorrespondeFase().equals(this.incluyeFase)) {
 
                 Participacion rival = null;
 
-                if (partido.getEquipoLocal().equals(parti)) {
+                if (partido.getEquipoLocal() == part) {
                     rival = partido.getEquipoVisitante();
-                } else if (partido.getEquipoVisitante() == parti) {
+                } else if (partido.getEquipoVisitante() == part) {
                     rival = partido.getEquipoLocal();
                 }
 
                 if (rival != null) {
-                    int goles = parti.cantidadGoles();
+                    int goles = part.cantidadGoles();
                     int golesRival = rival.cantidadGoles();
 
                     if (goles > golesRival) {

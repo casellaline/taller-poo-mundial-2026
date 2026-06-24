@@ -18,10 +18,9 @@ public class RegistroPosicion {
         this.puntos = puntos;
     }
 
-    /** @return la selección de la fila */
     public Seleccion getSeleccion() { return this.seleccion; }
 
-    /** @return los puntos acumulados */
+
     public int getPuntos() { return this.puntos; }
 }
 

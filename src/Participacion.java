@@ -114,7 +114,7 @@ public class Participacion {
 
                 Jugador jugadorInvolucrado = eventoActual.getJugador();
 
-                // Si el jugador existe (no es null), entramos a sumar
+                // Si el jugador existe, suma
                 if (jugadorInvolucrado != null) {
                     Seleccion seleccionDelJugador = jugadorInvolucrado.getSeleccion();
 

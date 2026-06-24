@@ -9,26 +9,12 @@ public class RegistroEvento {
 
     private List<Evento> eventosRegistrados;
 
-    // Constructores
-    /**
-     * Crea una instancia vacia de {@code RegistroEvento}.
-     */
+    // Constructor: Nace vacío
     public RegistroEvento() {
         this.eventosRegistrados = new ArrayList<>();
     }
 
-    /**
-     * Registra un evento en un partido validando que el jugador pertenezca
-     * al partido.
-     *
-     * @param partido partido en el que ocurre el evento
-     * @param tipo tipo de evento
-     * @param minuto minuto del suceso
-     * @param jugador jugador involucrado
-     * @return el evento creado y registrado
-     * @throws JugadorNoPerteneceAlPartidoException si los datos son nulos o el
-     *         jugador no participa en el partido
-     */
+    // Método Creador: Recibe los datos crudos, hace el "new", valida y crea
     public Evento registrarEvento(Partido partido, TipoEvento tipo, int minuto, Jugador jugador)
             throws JugadorNoPerteneceAlPartidoException {
 
@@ -54,9 +40,10 @@ public class RegistroEvento {
             throw new JugadorNoPerteneceAlPartidoException("El jugador " + jugador.getNombre() + " no pertenece a ninguna de las selecciones del partido.");
         }
 
+        // LA GESTORA FABRICA EL EVENTO (Cumpliendo la corrección del tutor)
         Evento nuevoEvento = new Evento(tipo, minuto, jugador);
 
-        // bidireccionalidad
+        // Orquestación de bidireccionalidad
         jugador.agregarEvento(nuevoEvento);
         partido.agregarEvento(nuevoEvento);
         this.eventosRegistrados.add(nuevoEvento);
@@ -64,18 +51,7 @@ public class RegistroEvento {
         return nuevoEvento;
     }
 
-    // Getters y Setters
-
-    /**
-     * Devuelve eventos registrados.
-     * @return eventos registrados
-     */
+    // 3. Getters y Setters completos
     public List<Evento> getEventosRegistrados() { return this.eventosRegistrados; }
-
-    /**
-     * Establece eventos registrados.
-     *
-     * @param eventosRegistrados eventosRegistrados
-     */
     public void setEventosRegistrados(List<Evento> eventosRegistrados) { this.eventosRegistrados = eventosRegistrados; }
 }

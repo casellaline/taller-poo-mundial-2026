@@ -11,23 +11,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Generador de los informes y estadisticas del torneo (tabla de
- * posiciones, resultados por seleccion, ranking de goleadores, informe
- * disciplinario, ficha tecnica de partido y estadisticas de sedes).
- */
-
 public class GeneradorInformes {
     private GestionDelegaciones gestionDelegaciones;
 
     private OrganizacionDeportiva organizacionDeportiva;
 
-    /**
-     * Crea una instancia de {@code GeneradorInformes} con los datos indicados.
-     *
-     * @param gestionDelegaciones gestionDelegaciones
-     * @param organizacionDeportiva organizacionDeportiva
-     */
     public GeneradorInformes(GestionDelegaciones gestionDelegaciones, OrganizacionDeportiva organizacionDeportiva) {
         this.gestionDelegaciones = gestionDelegaciones;
         this.organizacionDeportiva = organizacionDeportiva;
@@ -38,12 +26,6 @@ public class GeneradorInformes {
      * ordenadas por puntos en forma descendente.
      */
 
-    /**
-     * Operacion del sistema.
-     *
-     * @param grupo grupo
-     * @return resultado de la operacion
-     */
     public List<RegistroPosicion> tablaPosicionesPorGrupo(Grupo grupo) {
         List<RegistroPosicion> tabla = new ArrayList<RegistroPosicion>();
         if (grupo == null) {
@@ -65,9 +47,6 @@ public class GeneradorInformes {
     /**
      * Calcula el puntaje total de una selección sumando los puntos obtenidos en
      * todos los grupos donde participa.
-     *
-     * @param seleccion selección a evaluar
-     * @return puntaje total acumulado (0 si es {@code null})
      */
     public int puntajeTotalSeleccion(Seleccion seleccion) {
         int total = 0;
@@ -136,6 +115,7 @@ public class GeneradorInformes {
                     + " (" + resultado + ")");
         }
 
+        // Línea final con el puntaje total (reutiliza el método int existente)
         resultados.add("Puntaje total: " + puntajeTotalSeleccion(seleccion) + " pts");
 
         return resultados;
@@ -144,8 +124,6 @@ public class GeneradorInformes {
     /**
      * Genera el ranking de goleadores recorriendo los eventos de todos los
      * partidos y acumulando los goles por jugador, ordenado en forma descendente.
-     *
-     * @return lista de goleadores ordenada de mayor a menor cantidad de goles
      */
     public List<RegistroGoleador> rankingGoleadores() {
         List<RegistroGoleador> ranking = new ArrayList<RegistroGoleador>();
@@ -192,7 +170,6 @@ public class GeneradorInformes {
      * Genera el informe disciplinario de una selección, sumando amarillas y
      * rojas a lo largo de todos sus partidos.
      *
-     * @param seleccion selección a evaluar
      * @return texto con el detalle de amonestaciones y expulsiones
      */
     public String informeDisciplinarioSeleccion(Seleccion seleccion) {
@@ -229,9 +206,10 @@ public class GeneradorInformes {
             return "Partido nulo.";
         }
 
+        // Iniciamos el texto con el título
         String ficha = "=== FICHA TECNICA ===\n";
 
-        // Local
+        // Procesamos al Local
         Participacion local = partido.getEquipoLocal();
         if (local != null && local.getSeleccion() != null) {
             ficha = ficha + local.getSeleccion().getNombreFederacion() + " (Local) - Goles: "
@@ -241,7 +219,7 @@ public class GeneradorInformes {
             }
         }
 
-        // Visitante
+        // Procesamos al Visitante
         Participacion visitante = partido.getEquipoVisitante();
         if (visitante != null && visitante.getSeleccion() != null) {
             ficha = ficha + visitante.getSeleccion().getNombreFederacion() + " (Visitante) - Goles: "
@@ -251,7 +229,7 @@ public class GeneradorInformes {
             }
         }
 
-        // Los Eventos
+        // Procesamos los Eventos
         ficha = ficha + "Eventos:\n";
         for (Evento evento : partido.getEventos()) {
             String nombreJugador = (evento.getJugador() != null) ? evento.getJugador().getNombre() : "Sin jugador";

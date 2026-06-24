@@ -83,6 +83,7 @@ public class MenuMundial {
            System.out.println(" 6. Registrar pais");
            System.out.println(" 7. Registrar seleccion");
            System.out.println(" 8. Registrar arbitro");
+           System.out.println(" 9. Planificar partido");
            System.out.println(" 0. Volver al menu principal");
            System.out.println("------------------------------------------");
            System.out.print("Ingrese una opcion: ");
@@ -116,7 +117,7 @@ public class MenuMundial {
                            System.out.print("Posición (ARQUERO, DEFENSOR, MEDIOCAMPISTA, DELANTERO): ");
                            Posicion posicion = Posicion.valueOf(scanner.nextLine().toUpperCase());
 
-                           System.out.print("Nombre de la Selección destino (Ej. Argentina): ");
+                           System.out.print("Nombre de la Selección destino (Ej. AFA): ");
                            String nombreSeleccion = scanner.nextLine();
 
                            Seleccion seleccionDestino = delegaciones.buscarSeleccionPorNombre(nombreSeleccion);
@@ -370,6 +371,83 @@ public class MenuMundial {
                            System.out.println("ERROR INESPERADO: " + e.getMessage());
                        }
                        break;
+                   case 9:
+                       System.out.println(">> Planificar Partido");
+                       try {
+                           System.out.print("Fecha del partido (Ej. 20260615): ");
+                           int fecha = Integer.parseInt(scanner.nextLine().trim());
+
+                           System.out.print("Horario (Ej. 1600): ");
+                           int horario = Integer.parseInt(scanner.nextLine().trim());
+
+                           System.out.print("Duración en minutos (Ej. 90): ");
+                           int duracion = Integer.parseInt(scanner.nextLine().trim());
+
+                           System.out.print("Tiempo adicional en minutos (Ej. 5): ");
+                           int tiempoAdicional = Integer.parseInt(scanner.nextLine().trim());
+
+                           System.out.print("Nombre del estadio: ");
+                           String nombreEstadio = scanner.nextLine().trim();
+
+                           // Buscar el estadio recorriendo las sedes
+                           Estadio estadioDestino = null;
+                           for (Sede sede : infraestructura.getSedes()) {
+                               for (Estadio est : sede.getEstadios()) {
+                                   if (est.getNombre().equalsIgnoreCase(nombreEstadio)) {
+                                       estadioDestino = est;
+                                       break;
+                                   }
+                               }
+                               if (estadioDestino != null) break;
+                           }
+
+                           if (estadioDestino == null) {
+                               System.out.println("ERROR: No se encontró ningún estadio con ese nombre.");
+                               break;
+                           }
+
+                           System.out.print("Fase (Ej. GRUPOS, OCTAVOS, CUARTOS, SEMIFINAL, FINAL): ");
+                           String nombreFase = scanner.nextLine().trim().toUpperCase();
+                           Fase fasePartido = new Fase(NombreFase.valueOf(nombreFase));
+
+                           System.out.print("Nombre de la Selección Local (Ej. Argentina): ");
+                           Seleccion selLocal = delegaciones.buscarSeleccionPorNombre(scanner.nextLine().trim());
+                           if (selLocal == null) {
+                               System.out.println("ERROR: No se encontró la selección local.");
+                               break;
+                           }
+
+                           System.out.print("Nombre de la Selección Visitante (Ej. Brasil): ");
+                           Seleccion selVisita = delegaciones.buscarSeleccionPorNombre(scanner.nextLine().trim());
+                           if (selVisita == null) {
+                               System.out.println("ERROR: No se encontró la selección visitante.");
+                               break;
+                           }
+
+                           // 1. Crear las participaciones
+                           Participacion partLocal = new Participacion(true, selLocal);
+                           Participacion partVisita = new Participacion(false, selVisita);
+
+                           // 2. Asociar participaciones a las selecciones (vital para puntos/goles)
+                           selLocal.agregarParticipacion(partLocal);
+                           selVisita.agregarParticipacion(partVisita);
+
+                           // 3. Planificar el partido en la gestora
+                           Partido nuevoPartido = orgDeportiva.planificarPartido(fecha, horario, duracion, tiempoAdicional, estadioDestino, fasePartido, partLocal, partVisita);
+
+                           // 4. Vincular el partido al estadio (vital para estadísticas de sede)
+                           estadioDestino.agregarPartido(nuevoPartido);
+
+                           System.out.println("¡Partido planificado con éxito entre " + selLocal.getNombreFederacion() + " y " + selVisita.getNombreFederacion() + "!");
+
+                       } catch (NumberFormatException e) {
+                           System.out.println("ERROR: Los campos de fecha, horario, duración y tiempo adicional deben ser numéricos.");
+                       } catch (IllegalArgumentException e) {
+                           System.out.println("ERROR: La fase ingresada no existe (Asegurate de escribirla igual que en el Enum NombreFase).");
+                       } catch (Exception e) {
+                           System.out.println("ERROR INESPERADO: " + e.getMessage());
+                       }
+                       break;
 
                    case 0:
                        continuar = false;
@@ -457,7 +535,7 @@ public class MenuMundial {
                         break;
                     case 3:
                         System.out.println("\n>> Resultados por selección");
-                        System.out.print("Ingrese el nombre de la selección (Ej. 'Argentina'): ");
+                        System.out.print("Ingrese el nombre de la selección (Ej. 'AFA'): ");
                         String nombreSeleccion = scanner.nextLine().trim();
 
                         Seleccion seleccionEncontrada = null;
@@ -494,7 +572,7 @@ public class MenuMundial {
                         break;
                     case 5:
                         System.out.println("\n>> Informe disciplinario por seleccion");
-                        System.out.print("Ingrese el nombre de la seleccion (Ej. 'Argentina'): ");
+                        System.out.print("Ingrese el nombre de la seleccion (Ej. 'AFA): ");
                         String nombreSelDisc = scanner.nextLine().trim();
 
                         Seleccion selDisciplina = null;
