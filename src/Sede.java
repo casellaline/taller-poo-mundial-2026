@@ -10,7 +10,7 @@ public class Sede {
     private float alturaNivelMar;
     private String clima;
     private String zonaHoraria;
-    private Pais pais; // Corregido para que sea un sustantivo claro
+    private Pais pais;
     private List<Estadio> estadios;
 
     // Constructore
