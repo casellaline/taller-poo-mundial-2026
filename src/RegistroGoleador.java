@@ -24,10 +24,15 @@ public class RegistroGoleador {
     public void sumarGol() {
         this.goles = this.goles + 1;
     }
+    /**
+     * @return el jugador asociado a este registro.
+     */
 
 
     public Jugador getJugador() { return this.jugador; }
-
+    /**
+     * @return la cantidad total de goles anotados por el jugador.
+     */
 
     public int getGoles() { return this.goles; }
 

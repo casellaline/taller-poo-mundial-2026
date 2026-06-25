@@ -10,20 +10,31 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+/**
+ * Gestora encargada de recopilar los datos y generar los reportes del Mundial.
+ */
 
 public class GeneradorInformes {
     private GestionDelegaciones gestionDelegaciones;
 
     private OrganizacionDeportiva organizacionDeportiva;
+    /**
+     * Crea una instancia del generador de informes.
+     * @param gestionDelegaciones Gestora de las delegaciones.
+     * @param organizacionDeportiva Gestora de los partidos y grupos.
+     */
 
     public GeneradorInformes(GestionDelegaciones gestionDelegaciones, OrganizacionDeportiva organizacionDeportiva) {
         this.gestionDelegaciones = gestionDelegaciones;
         this.organizacionDeportiva = organizacionDeportiva;
     }
 
+
+
     /**
-     * Genera la tabla de posiciones de un grupo: las selecciones del grupo
-     * ordenadas por puntos en forma descendente.
+     * Genera la tabla de posiciones de un grupo.
+     * @param grupo El grupo a evaluar.
+     * @return Una lista ordenada con los puntos de cada selección.
      */
 
     public List<RegistroPosicion> tablaPosicionesPorGrupo(Grupo grupo) {
@@ -44,9 +55,11 @@ public class GeneradorInformes {
         return tabla;
     }
 
+
     /**
-     * Calcula el puntaje total de una selección sumando los puntos obtenidos en
-     * todos los grupos donde participa.
+     * Calcula el puntaje total acumulado por una selección.
+     * @param seleccion La selección a calcular.
+     * @return El puntaje entero total.
      */
     public int puntajeTotalSeleccion(Seleccion seleccion) {
         int total = 0;
@@ -122,8 +135,8 @@ public class GeneradorInformes {
     }
 
     /**
-     * Genera el ranking de goleadores recorriendo los eventos de todos los
-     * partidos y acumulando los goles por jugador, ordenado en forma descendente.
+     * Genera el ranking histórico de goleadores del torneo.
+     * @return Una lista ordenada de jugadores y sus goles.
      */
     public List<RegistroGoleador> rankingGoleadores() {
         List<RegistroGoleador> ranking = new ArrayList<RegistroGoleador>();
@@ -167,10 +180,9 @@ public class GeneradorInformes {
     }
 
     /**
-     * Genera el informe disciplinario de una selección, sumando amarillas y
-     * rojas a lo largo de todos sus partidos.
-     *
-     * @return texto con el detalle de amonestaciones y expulsiones
+     * Genera un reporte con las tarjetas de un equipo.
+     * @param seleccion La selección a consultar.
+     * @return Un String con el texto del reporte.
      */
     public String informeDisciplinarioSeleccion(Seleccion seleccion) {
         int amarillas = 0;

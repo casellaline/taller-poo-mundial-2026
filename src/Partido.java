@@ -28,6 +28,9 @@ public class Partido {
         this.arbitrajes = new ArrayList<Arbitraje>();
         this.eventos = new ArrayList<Evento>();
     }
+    /**
+     * Crea un nuevo partido con todos sus datos logísticos.
+     */
 
     public Partido(int fecha, int horario, int duracion, int tiempoAdicional,
                    Estadio seDesarrollaEn, Fase correspondeFase,
@@ -223,6 +226,7 @@ public class Partido {
      * Agrega un objeto Arbitraje a la lista de arbitrajes de este partido.
      *
      * @param arbitraje El objeto Arbitraje ya instanciado.
+     * @return true si se agregó con éxito, false en caso contrario.
      */
     public boolean agregarArbitraje(Arbitraje arbitraje) {
         if (arbitraje != null) {

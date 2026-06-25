@@ -32,7 +32,9 @@ public class Seleccion {
         this.cuerpoTec = new ArrayList<CuerpoTecnico>();
         this.participaciones = new ArrayList<Participacion>();
     }
-
+    /**
+     * Construye una nueva Selección con todos sus atributos base.
+     */
 
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria,
                      boolean cabezaGrupo, int rankingFIFA) {

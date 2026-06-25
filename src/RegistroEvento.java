@@ -52,6 +52,12 @@ public class RegistroEvento {
     }
 
     // 3. Getters y Setters completos
+    /**
+     * @return la lista de eventos registrados.
+     */
     public List<Evento> getEventosRegistrados() { return this.eventosRegistrados; }
+    /**
+     * @param eventosRegistrados la nueva lista de eventos a establecer.
+     */
     public void setEventosRegistrados(List<Evento> eventosRegistrados) { this.eventosRegistrados = eventosRegistrados; }
 }
