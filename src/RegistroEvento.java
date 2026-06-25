@@ -15,6 +15,14 @@ public class RegistroEvento {
     }
 
     // Método Creador: Recibe los datos crudos, hace el "new", valida y crea
+    /**
+     * Registra un nuevo evento vinculando un jugador y un partido.
+     * @param partido el partido donde ocurre el evento.
+     * @param tipo el tipo de evento registrado.
+     * @param minuto el minuto exacto del suceso.
+     * @param jugador el jugador implicado.
+     * @return el evento instanciado.
+     */
     public Evento registrarEvento(Partido partido, TipoEvento tipo, int minuto, Jugador jugador)
             throws JugadorNoPerteneceAlPartidoException {
 

@@ -30,8 +30,16 @@ public class Partido {
     }
     /**
      * Crea un nuevo partido con todos sus datos logísticos.
+     *
+     * @param fecha la fecha en formato numerico.
+     * @param horario el horario del partido.
+     * @param duracion la duracion reglamentaria en minutos.
+     * @param tiempoAdicional el tiempo de descuento en minutos.
+     * @param seDesarrollaEn el estadio donde se juega.
+     * @param correspondeFase la fase eliminatoria o de grupos.
+     * @param equipoLocal la participacion del equipo local.
+     * @param equipoVisitante la participacion del equipo visitante.
      */
-
     public Partido(int fecha, int horario, int duracion, int tiempoAdicional,
                    Estadio seDesarrollaEn, Fase correspondeFase,
                    Participacion equipoLocal, Participacion equipoVisitante) {

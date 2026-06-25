@@ -28,7 +28,6 @@ public class RegistroGoleador {
      * @return el jugador asociado a este registro.
      */
 
-
     public Jugador getJugador() { return this.jugador; }
     /**
      * @return la cantidad total de goles anotados por el jugador.

@@ -34,6 +34,12 @@ public class Seleccion {
     }
     /**
      * Construye una nueva Selección con todos sus atributos base.
+     *
+     * @param nombreFederacion el acronimo de la federacion.
+     * @param camisetaPrincipal el color de la titular.
+     * @param camisetaSecundaria el color de la suplente.
+     * @param cabezaGrupo indica si es cabeza de serie en el sorteo.
+     * @param rankingFIFA el puesto actual en el ranking mundial.
      */
 
     public Seleccion(String nombreFederacion, String camisetaPrincipal, String camisetaSecundaria,
