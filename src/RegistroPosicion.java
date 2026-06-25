@@ -18,12 +18,14 @@ public class RegistroPosicion {
         this.puntos = puntos;
     }
     /**
+     * Obtiene la seleccion.
      * @return la seleccion de este registro en la tabla.
      */
 
     public Seleccion getSeleccion() { return this.seleccion; }
 
     /**
+     * Obtiene los puntos.
      * @return los puntos totales obtenidos por la seleccion.
      */
     public int getPuntos() { return this.puntos; }

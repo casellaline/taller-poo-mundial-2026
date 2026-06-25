@@ -22,6 +22,7 @@ public class RegistroEvento {
      * @param minuto el minuto exacto del suceso.
      * @param jugador el jugador implicado.
      * @return el evento instanciado.
+     * @throws JugadorNoPerteneceAlPartidoException si el jugador no forma parte del partido.
      */
     public Evento registrarEvento(Partido partido, TipoEvento tipo, int minuto, Jugador jugador)
             throws JugadorNoPerteneceAlPartidoException {
@@ -61,10 +62,12 @@ public class RegistroEvento {
 
     // 3. Getters y Setters completos
     /**
+     * Obtiene la lista completa de eventos.
      * @return la lista de eventos registrados.
      */
     public List<Evento> getEventosRegistrados() { return this.eventosRegistrados; }
     /**
+     * Establece una nueva lista de eventos.
      * @param eventosRegistrados la nueva lista de eventos a establecer.
      */
     public void setEventosRegistrados(List<Evento> eventosRegistrados) { this.eventosRegistrados = eventosRegistrados; }

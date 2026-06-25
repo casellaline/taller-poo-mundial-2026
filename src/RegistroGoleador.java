@@ -25,11 +25,13 @@ public class RegistroGoleador {
         this.goles = this.goles + 1;
     }
     /**
+     * Obtiene el jugador registrado.
      * @return el jugador asociado a este registro.
      */
 
     public Jugador getJugador() { return this.jugador; }
     /**
+     * Obtiene la cantidad de goles.
      * @return la cantidad total de goles anotados por el jugador.
      */
 
